@@ -14,7 +14,7 @@ def generate_serializers(app_config):
     message = 'Generating Serializers for %s (%s)' % (name, filename)
     print(message)
 
-    temp = template.Template(SERIALIZER_FILE_TEMPLATE)
+    temp = template.Template(SERIALIZER_TEMPLATE)
     models = get_model_names(app_config)
     details = get_model_details(app_config)
     context = template.Context({ 'app': name,
@@ -25,8 +25,7 @@ def generate_serializers(app_config):
     content = temp.render(context)
     app = app_config.models_module
     if write_file(content, filename, app):
-        for serializer in get_serializer_names(models):
-            print('  - %s' % serializer)
+        print('  - writing %s' % filename)
     else:
         print('Serializer generation cancelled')
 
@@ -38,7 +37,7 @@ def generate_views(app_config):
     message = 'Generating API Views for %s (%s)' % (name, filename)
     print(message)
 
-    temp = template.Template(VIEW_FILE_TEMPLATE)
+    temp = template.Template(VIEW_SET_TEMPLATE)
     models = get_model_names(app_config)
     serializers = get_serializer_names(models)
     context = template.Context({ 'app': name,
@@ -47,8 +46,7 @@ def generate_views(app_config):
 
     content = temp.render(context)
     if write_file(content, filename, app):
-        for view in get_view_names(models):
-            print('  - %s' % view)
+        print('  - writing %s' % filename)
     else:
         print('View genereration cancelled')
 
@@ -60,7 +58,7 @@ def generate_urls(app_config):
     message = 'Generating urls for %s (%s)' % (name, filename)
     print(message)
 
-    temp = template.Template(URL_FILE_TEMPLATE)
+    temp = template.Template(VIEW_SET_ROUTER_TEMPLATE)
     models = get_model_names(app_config)
     context = template.Context({ 'app': name,
                                  'models': models })
