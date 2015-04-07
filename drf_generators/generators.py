@@ -3,6 +3,7 @@ from django import template
 import os.path
 
 from drf_generators.templates import *
+from drf_generators.helpers import write_file
 
 __all__ = ['generate_serializers', 'generate_views']
 
@@ -25,13 +26,13 @@ def generate_serializers(models, app):
                                  'models': model_names,
                                  'details': details})
 
-    name = os.path.join(os.path.dirname(app.__file__), 'serializers.py')
-    serializer_file = open(name, 'w+')
-    serializer_file.write(temp.render(context))
-    serializer_file.close()
-
-    for model in model_names:
-        print('  - %sSerializer' % model)
+    filename = 'serializers.py'
+    content = temp.render(context)
+    if write_file(content, filename, app):
+        for model in model_names:
+            print('  - %sSerializer' % model)
+    else:
+        print('Serializer generation cancelled')
 
 def generate_views(models, app):
     name = app.__name__.replace('.models', '')
@@ -45,11 +46,11 @@ def generate_views(models, app):
                                  'serializers': serializers,
                                  'models': model_names })
 
-    name = os.path.join(os.path.dirname(app.__file__), 'views.py')
-    view_file = open(name, 'w+')
-    view_file.write(temp.render(context))
-    view_file.close()
-
-    for model in model_names:
-        print('  - %sAPIView' % model)
-        print('  - %sAPIListView' % model)
+    filename = 'views.py'
+    content = temp.render(context)
+    if write_file(content, filename, app):
+        for model in model_names:
+            print('  - %sAPIView' % model)
+            print('  - %sAPIListView' % model)
+    else:
+        print('View genereration cancelled')
