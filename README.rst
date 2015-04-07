@@ -55,10 +55,14 @@ To use DRF Generator, add it your INSTALLED_APPS.
 
 Then run one of the following commands, where ``app`` is the application to generate an API for.
 
-:``generate-serializers``: Generate Serializers for your app :
-:``generate-views``: Generate Views for your app :
-:``generate-urls``: Generate urls for your app :
-:``generate-api``: Generate Serializers, Views, and urls for your app :
+======================== ===================================================
+Command                  Action
+======================== ===================================================
+``generate-serializers`` Generate Serializers for your app.
+``generate-views``       Generate Views for your app.
+``generate-urls``        Generate urls for your app.
+``generate-api``         Generate Serializers, Views, and urls for your app.
+======================== ===================================================
 
 .. code-block:: bash
 
