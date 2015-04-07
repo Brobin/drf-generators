@@ -2,7 +2,8 @@
 Templates for generatring DRF Serializer and View classes.
 """
 
-__all__ = ['SERIALIZER_FILE_TEMPLATE', 'VIEW_FILE_TEMPLATE']
+__all__ = ['SERIALIZER_FILE_TEMPLATE', 'VIEW_FILE_TEMPLATE',
+           'URL_FILE_TEMPLATE']
 
 
 SERIALIZER_FILE_TEMPLATE = """
@@ -17,6 +18,21 @@ class {{ detail.name }}Serializer(ModelSerializer):
         fields = ({{ detail.fields | safe }})
 
 {% endfor %}"""
+
+
+URL_FILE_TEMPLATE = """
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from {{ app }} import views
+
+
+urlpatterns = patterns('',
+{% for model in models %}
+    url(r'^{{ model|lower }}/([0-9]+)$', views.{{ model }}APIView.as_view()),
+    url(r'^{{ model|lower }}', views.{{ model }}APIListView.as_view()),
+{% endfor %}
+)
+"""
 
 
 VIEW_FILE_TEMPLATE = """

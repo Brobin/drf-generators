@@ -3,9 +3,9 @@
 DRF Generators
 ==============
 
-Writing API Views is boring and repetitive work. Don't write another CRUDdy view in Django Rest Framework. With DRF Generators, one simple command will create all of your API Views and Serializers for your Django Rest Framework application!
+Writing APIs can be boring and repetitive work. Don't write another CRUDdy view in Django Rest Framework. With DRF Generators, one simple command will create all of your API Views, Serializers, and even Urls for your Django Rest Framework application!
 
-This is not intended to give you porduction quality Views. You may want to add authentication to your View classes. this was intended to save you lots of time writing the same code again and again for each class.
+This is not intended to give you a production quality API. It was intended to jumpstart your development and save you from writing the same code over and over for each model.
 
 ---------------
 
@@ -48,22 +48,13 @@ To use DRF Generator, add it your INSTALLED_APPS.
         ...
     )
 
-Then run the following command, where `app` is the application to generate Serializers and Views for.
+Then run the following command, where `app` is the application to generate an API for.
 
 .. code-block:: bash
 
    $ python manage.py generate-api {app}
 
-*Note*: DRF Generators does not yet support generation of urls. you will have to add them in the following format to your project's `urls.py`
-
-.. code-block:: python
-
-    urlpatterns = patterns('',
-        url(r'^model', views.ModelListView.as_view()),
-        url(r'^model/([0-9]+)$', views.ModelView.as_view()),
-    )
-
-*Note*: In order to use the APIListView classes, you must have the following rest framework settings set.
+*Note*: In order to use the APIListView classes, you must have the following rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
 
 .. code-block:: python
 
@@ -86,6 +77,18 @@ API Views
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
 
 DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for `GET`, `PUT`, and `DELETE`. The List View has a `GET` method that returns a paginated result of the model, and a `POST` moethod to save a new model.
+
+
+----
+Urls
+----
+
+Finally, DRF Generator will create you a default urls.py in the following format.
+
+.. code-block:: python
+
+    url(r'^model/([0-9]+)$', views.ModelAPIView.as_view()),
+    url(r'^model', views.ModelAPIListView.as_view()),
 
 
 .. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat
