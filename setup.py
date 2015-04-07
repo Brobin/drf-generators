@@ -14,7 +14,7 @@ setup(
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
-    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.3.zip',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.4.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
