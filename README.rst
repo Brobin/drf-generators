@@ -63,6 +63,14 @@ Then run the following command, where `app` is the application to generate Seria
         url(r'^model/([0-9]+)$', views.ModelView.as_view()),
     )
 
+*Note*: In order to use the APIListView classes, you must have the following rest framework settings set.
+
+.. code-block:: python
+
+    REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 15
+    }
 
 -----------
 Serializers
