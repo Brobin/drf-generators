@@ -1,7 +1,5 @@
 
 from django.core.management.base import AppCommand
-from django.db.models import get_models
-
 from drf_generators.generators import generate_urls
 
 
