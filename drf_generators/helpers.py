@@ -9,7 +9,7 @@ def write_file(content, filename, app):
     if os.path.exists(name):
         message = 'Are you sure you want to overwrite %s? (y/n)' % filename
         response = input(message)
-        if response == 'n':
+        if response != 'y':
             return False
     new_file = open(name, 'w+')
     new_file.write(content)
