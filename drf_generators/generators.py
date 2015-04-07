@@ -8,7 +8,7 @@ __all__ = ['generate_serializers', 'generate_views']
 
 
 def generate_serializers(models, app):
-    name = app.__name__
+    name = app.__name__.replace('.models', '')
     message = 'Generating Serializers for %s (serializers.py)' % name
     print(message)
 
@@ -34,7 +34,7 @@ def generate_serializers(models, app):
         print('  - %sSerializer' % model)
 
 def generate_views(models, app):
-    name = app.__name__
+    name = app.__name__.replace('.models', '')
     message = 'Generating API Views for %s (models.py)' % name
     print(message)
 

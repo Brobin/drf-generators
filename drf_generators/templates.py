@@ -7,13 +7,13 @@ __all__ = ['SERIALIZER_FILE_TEMPLATE', 'VIEW_FILE_TEMPLATE']
 
 SERIALIZER_FILE_TEMPLATE = """
 from rest_framework.serializers import ModelSerializer
-from {{ app }} import {{ models | join:', ' }}
+from {{ app }}.models import {{ models | join:', ' }}
 
 {% for detail in details %}
-class {{ detail.model }}Serializer(ModelSerializer):
+class {{ detail.name }}Serializer(ModelSerializer):
 
     class Meta:
-        model = {{ detail.model }}
+        model = {{ detail.name }}
         fields = ({{ detail.fields | safe }})
 
 {% endfor %}"""
