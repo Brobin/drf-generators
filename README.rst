@@ -42,6 +42,12 @@ To use DRF Generator, add it your INSTALLED_APPS.
         ...
     )
 
+Then run the following command, where `app` is the application to generate Serializers and Views for.
+
+.. code-block:: bash
+
+   $ python manage.py generate-api {app}
+
 *Note*: DRF Generators does not yet support generation of urls. you will have to add them in the following format to your project's `urls.py`
 
 .. code-block:: python
@@ -51,12 +57,6 @@ To use DRF Generator, add it your INSTALLED_APPS.
         url(r'^model/([0-9]+)$', views.ModelView.as_view()),
     )
 
-
-Then run the following command, where `app` is the application to generate Serializers and Views for.
-
-.. code-block:: bash
-
-   $ python manage.py generate-api {app}
 
 -----------
 Serializers
