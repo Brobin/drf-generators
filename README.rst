@@ -13,6 +13,11 @@ This is not intended to give you a production quality API. It was intended to ju
 
 ---------------
 
+* `Installation`_
+* `Usage`_
+* `Serializers`_
+* `Views`_
+* `Urls`_
 
 ------------
 Installation
@@ -79,7 +84,7 @@ The generator will create `serializers.py` for your application. DRF Generator c
 
 
 ---------
-API Views
+Views
 ---------
 
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
