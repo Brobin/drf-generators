@@ -20,6 +20,7 @@ Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
 * `Serializers`_
 * `Views`_
 * `Urls`_
+* `License`_
 
 ------------
 Installation
