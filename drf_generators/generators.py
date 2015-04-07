@@ -3,13 +3,14 @@ from django import template
 import os.path
 
 from drf_generators.templates import *
+from drf_generators.helpers import write_file
 
-__all__ = ['generate_serializers', 'generate_views']
+__all__ = ['generate_serializers', 'generate_views', 'generate_urls']
 
 
-def generate_serializers(models, app):
-    name = app.__name__.replace('.models', '')
-    message = 'Generating Serializers for %s (serializers.py)' % name
+def generate_serializers(models, app, name):
+    filename = 'serializers.py'
+    message = 'Generating Serializers for %s (%s)' % (name, filename)
     print(message)
 
     temp = template.Template(SERIALIZER_FILE_TEMPLATE)
@@ -25,17 +26,18 @@ def generate_serializers(models, app):
                                  'models': model_names,
                                  'details': details})
 
-    name = os.path.join(os.path.dirname(app.__file__), 'serializers.py')
-    serializer_file = open(name, 'w+')
-    serializer_file.write(temp.render(context))
-    serializer_file.close()
+    filename = 'serializers.py'
+    content = temp.render(context)
+    if write_file(content, filename, app):
+        for model in model_names:
+            print('  - %sSerializer' % model)
+    else:
+        print('Serializer generation cancelled')
 
-    for model in model_names:
-        print('  - %sSerializer' % model)
 
-def generate_views(models, app):
-    name = app.__name__.replace('.models', '')
-    message = 'Generating API Views for %s (models.py)' % name
+def generate_views(models, app, name):
+    filename = 'views.py'
+    message = 'Generating API Views for %s (%s)' % (name, filename)
     print(message)
 
     temp = template.Template(VIEW_FILE_TEMPLATE)
@@ -45,11 +47,27 @@ def generate_views(models, app):
                                  'serializers': serializers,
                                  'models': model_names })
 
-    name = os.path.join(os.path.dirname(app.__file__), 'views.py')
-    view_file = open(name, 'w+')
-    view_file.write(temp.render(context))
-    view_file.close()
+    content = temp.render(context)
+    if write_file(content, filename, app):
+        for model in model_names:
+            print('  - %sAPIView' % model)
+            print('  - %sAPIListView' % model)
+    else:
+        print('View genereration cancelled')
 
-    for model in model_names:
-        print('  - %sAPIView' % model)
-        print('  - %sAPIListView' % model)
+
+def generate_urls(models, app, name):
+    filename = 'urls.py'
+    message = 'Generating urls for %s (%s)' % (name, filename)
+    print(message)
+
+    temp = template.Template(URL_FILE_TEMPLATE)
+    model_names = [m._meta.object_name for m in models]
+    context = template.Context({ 'app': name,
+                                 'models': model_names })
+
+    content = temp.render(context)
+    if write_file(content, filename, app):
+        print('  - writing %s' % filename)
+    else:
+        print('Urls genereration cancelled')
