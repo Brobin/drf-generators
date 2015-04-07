@@ -13,10 +13,7 @@ class Command(AppCommand):
     def handle_app_config(self, app_config, **options):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
-        app = app_config.models_module
-        name = app.__name__.replace('.models', '')
-        models = get_models(app)
 
-        generate_serializers(models, app, name)
-        generate_views(models, app, name)
-        generate_urls(models, app, name)
+        generate_serializers(app_config)
+        generate_views(app_config)
+        generate_urls(app_config)
