@@ -69,6 +69,14 @@ Serializers
 
 The generator will create `serializers.py` for your application. DRF Generator currently supports basic serializers with the fields defined in `models.py`. In the future, foreign key fields for nested serialization will be supported.
 
+.. code-block:: python
+
+    class UserSerializer(ModelSerializer):
+
+        class Meta:
+            model = User
+            fields = ('id', 'name', 'city', 'state', 'address', 'zip_code')
+
 
 ---------
 API Views
@@ -76,7 +84,29 @@ API Views
 
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
 
-DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for `GET`, `PUT`, and `DELETE`. The List View has a `GET` method that returns a paginated result of the model, and a `POST` moethod to save a new model.
+DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for `GET`, `PUT`, and `DELETE`. The List View has a `GET` method that returns a paginated result of the model, and a `POST` method to save a new model.
+
+.. code-block:: python
+
+    class UserAPIView(APIView):
+
+        def get(self, request, id, format=None):
+            ...
+
+        def put(self, request, id, format=None):
+            ...
+
+        def delete(self, request, id, format=None):
+            ...
+
+
+    class UserAPIListView(APIView):
+
+        def get(self, request, format=None):
+            ...
+
+        def post(self, request, format=None):
+            ...
 
 
 ----
@@ -87,8 +117,8 @@ Finally, DRF Generator will create you a default urls.py in the following format
 
 .. code-block:: python
 
-    url(r'^model/([0-9]+)$', views.ModelAPIView.as_view()),
-    url(r'^model', views.ModelAPIListView.as_view()),
+    url(r'^user/([0-9]+)$', views.UserAPIView.as_view()),
+    url(r'^user', views.UserAPIListView.as_view()),
 
 
 .. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat
