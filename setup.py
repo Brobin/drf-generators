@@ -1,6 +1,5 @@
 import os
 from setuptools import setup
-from version import __version__
 
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     README = readme.read()
@@ -9,13 +8,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='drf-generators',
-    version=__version__,
+    version='0.1.2',
 
     description='Generate DRF Serializers and View for your API aplication.',
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
-    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.zip',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.2.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
