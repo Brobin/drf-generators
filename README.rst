@@ -7,6 +7,8 @@ Writing APIs can be boring and repetitive work. Don't write another CRUDdy view 
 
 This is not intended to give you a production quality API. It was intended to jumpstart your development and save you from writing the same code over and over for each model.
 
+Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
+
 ---------------
 
 |python| |pypi|
@@ -133,6 +135,13 @@ Finally, DRF Generator will create you a default ``urls.py`` in the following fo
 
     url(r'^user/([0-9]+)$', views.UserAPIView.as_view()),
     url(r'^user', views.UserAPIListView.as_view()),
+
+
+-------
+License
+-------
+
+MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/LICENSE>`_.
 
 
 .. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat
