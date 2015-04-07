@@ -15,6 +15,7 @@ setup(
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
@@ -37,7 +38,6 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: API',
     ],
 
     keywords='API REST framework generate',

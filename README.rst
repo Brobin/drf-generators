@@ -12,13 +12,13 @@ This is not intended to give you porduction quality Views. You may want to add a
 Installation
 ------------
 
-Install with pip (pypi package coming soon!)
+Install with pip:
 
 .. code-block:: bash
 
-    $ pip install git+https://github.com/brobin/drf-generators.git
+    $ pip install drf-generators
 
-Clone the repo and install manually
+Clone the repo and install manually:
 
 .. code-block:: bash
 
