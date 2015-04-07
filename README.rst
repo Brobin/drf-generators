@@ -89,9 +89,9 @@ DRF Generator creates a basic CRUD API View and List View for each model. The ba
 
 
 .. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat
-    :target: https://pypi.python.org/pypi/rtv/
+    :target: https://pypi.python.org/pypi/drf-generators/
     :alt: Supported Python versions
 
 .. |pypi| image:: https://pypip.in/version/drf-generators/badge.svg?text=version&style=flat
-    :target: https://pypi.python.org/pypi/rtv/
+    :target: https://pypi.python.org/pypi/drf-generators/
     :alt: Latest Version
