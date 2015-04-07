@@ -7,6 +7,8 @@ Writing APIs can be boring and repetitive work. Don't write another CRUDdy view 
 
 This is not intended to give you a production quality API. It was intended to jumpstart your development and save you from writing the same code over and over for each model.
 
+Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
+
 ---------------
 
 |python| |pypi|
@@ -18,6 +20,7 @@ This is not intended to give you a production quality API. It was intended to ju
 * `Serializers`_
 * `Views`_
 * `Urls`_
+* `License`_
 
 ------------
 Installation
@@ -53,11 +56,20 @@ To use DRF Generator, add it your INSTALLED_APPS.
         ...
     )
 
-Then run the following command, where `app` is the application to generate an API for.
+Then run one of the following commands, where ``app`` is the application to generate an API for.
+
+======================== ===================================================
+Command                  Action
+======================== ===================================================
+``generate-serializers`` Generate Serializers for your app.
+``generate-views``       Generate Views for your app.
+``generate-urls``        Generate urls for your app.
+``generate-api``         Generate Serializers, Views, and urls for your app.
+======================== ===================================================
 
 .. code-block:: bash
 
-   $ python manage.py generate-api {app}
+   $ python manage.py {command} {app}
 
 *Note*: In order to use the APIListView classes, you must have the following rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
 
@@ -72,7 +84,7 @@ Then run the following command, where `app` is the application to generate an AP
 Serializers
 -----------
 
-The generator will create `serializers.py` for your application. DRF Generator currently supports basic serializers with the fields defined in `models.py`. In the future, foreign key fields for nested serialization will be supported.
+The generator will create ``serializers.py`` for your application. DRF Generator currently supports basic serializers with the fields defined in ``models.py``. In the future, foreign key fields for nested serialization will be supported.
 
 .. code-block:: python
 
@@ -89,7 +101,7 @@ Views
 
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
 
-DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for `GET`, `PUT`, and `DELETE`. The List View has a `GET` method that returns a paginated result of the model, and a `POST` method to save a new model.
+DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for ``GET``, ``PUT``, and ``DELETE``. The List View has a ``GET`` method that returns a paginated result of the model, and a ``POST`` method to save a new model.
 
 .. code-block:: python
 
@@ -118,12 +130,19 @@ DRF Generator creates a basic CRUD API View and List View for each model. The ba
 Urls
 ----
 
-Finally, DRF Generator will create you a default urls.py in the following format.
+Finally, DRF Generator will create you a default ``urls.py`` in the following format.
 
 .. code-block:: python
 
     url(r'^user/([0-9]+)$', views.UserAPIView.as_view()),
     url(r'^user', views.UserAPIListView.as_view()),
+
+
+-------
+License
+-------
+
+MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/LICENSE>`_.
 
 
 .. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat

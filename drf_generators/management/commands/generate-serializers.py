@@ -2,7 +2,7 @@
 from django.core.management.base import AppCommand
 from django.db.models import get_models
 
-from drf_generators.generators import *
+from drf_generators.generators import generate_serializers
 
 
 class Command(AppCommand):
@@ -15,5 +15,3 @@ class Command(AppCommand):
             raise CommandError('You must provide an app to generate an API')
 
         generate_serializers(app_config)
-        generate_views(app_config)
-        generate_urls(app_config)
