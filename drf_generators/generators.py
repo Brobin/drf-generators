@@ -8,8 +8,7 @@ from drf_generators.helpers import write_file
 __all__ = ['generate_serializers', 'generate_views']
 
 
-def generate_serializers(models, app):
-    name = app.__name__.replace('.models', '')
+def generate_serializers(models, app, name):
     message = 'Generating Serializers for %s (serializers.py)' % name
     print(message)
 
@@ -34,8 +33,7 @@ def generate_serializers(models, app):
     else:
         print('Serializer generation cancelled')
 
-def generate_views(models, app):
-    name = app.__name__.replace('.models', '')
+def generate_views(models, app, name):
     message = 'Generating API Views for %s (models.py)' % name
     print(message)
 
