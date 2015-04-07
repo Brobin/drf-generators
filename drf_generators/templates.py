@@ -60,7 +60,7 @@ class {{ model }}APIView(APIView):
 class {{ model }}APIListView(APIView):
 
     def get(self, request, format=None):
-        items = {{ model }}.objects.order_by('name').all()
+        items = {{ model }}.objects.all()
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
         serializer = {{ model }}Serializer(result_page, many=True)
