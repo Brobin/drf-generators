@@ -7,6 +7,12 @@ Writing API Views is boring and repetitive work. Don't write another CRUDdy view
 
 This is not intended to give you porduction quality Views. You may want to add authentication to your View classes. this was intended to save you lots of time writing the same code again and again for each class.
 
+---------------
+
+|python| |pypi|
+
+---------------
+
 
 ------------
 Installation
@@ -72,3 +78,12 @@ API Views
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
 
 DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for `GET`, `PUT`, and `DELETE`. The List View has a `GET` method that returns a paginated result of the model, and a `POST` moethod to save a new model.
+
+
+.. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat
+    :target: https://pypi.python.org/pypi/rtv/
+    :alt: Supported Python versions
+
+.. |pypi| image:: https://pypip.in/version/drf-generators/badge.svg?text=version&style=flat
+    :target: https://pypi.python.org/pypi/rtv/
+    :alt: Latest Version
