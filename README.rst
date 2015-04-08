@@ -40,11 +40,6 @@ Clone the repo and install manually:
     $ cd drf-generators
     $ python setup.py install
 
-
------
-Usage
------
-
 To use DRF Generator, add it your INSTALLED_APPS.
 
 .. code-block:: python
@@ -56,22 +51,7 @@ To use DRF Generator, add it your INSTALLED_APPS.
         ...
     )
 
-Then run one of the following commands, where ``app`` is the application to generate an API for.
-
-========================== ===================================================
-Command                    Action
-========================== ===================================================
-``generate --serializers`` Generate Serializers for your app.
-``generate --views``       Generate Views for your app.
-``generate --urls``        Generate urls for your app.
-``generate``               Generate Serializers, Views, and urls for your app.
-========================== ===================================================
-
-.. code-block:: bash
-
-   $ python manage.py {command} {app}
-
-*Note*: In order to use the APIListView classes, you must have the following rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
+*Note*: In order to use the APIListView classes, you must have the rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
 
 .. code-block:: python
 
@@ -79,6 +59,27 @@ Command                    Action
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE': 15
     }
+
+
+-----
+Usage
+-----
+
+To use the generator run one of the following commands, where ``app`` is the application to generate an API for.
+
+.. code-block:: bash
+
+   $ python manage.py generate {options} {app}
+
+========================== ===================================================
+Option                     Action
+========================== ===================================================
+``--serializers``          Generate only Serializers for your app.
+``--views``                Generate only Views for your app.
+``--urls``                 Generate only urls for your app.
+``--apiview``              Use APIView classes instead of ViewSet classes.
+========================== ===================================================
+
 
 -----------
 Serializers
