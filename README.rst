@@ -141,13 +141,6 @@ When running the generator with the ``--apiview`` option, you will get the follo
             ...
 
 
------
-Tests
------
-
-A full application built with drf-generators can be found in the `tests <http://github/com/brobin/drf-generators/tree/master/tests>`_ directory. Instructions on running them can be found in the test project's README.
-
-
 ----
 Urls
 ----
@@ -170,6 +163,13 @@ If you run the generatro with the ``--apiview`` option, you will get urls like t
 
     url(r'^user/([0-9]+)$', views.UserAPIView.as_view()),
     url(r'^user', views.UserAPIListView.as_view()),
+
+
+-----
+Tests
+-----
+
+A full application built with drf-generators can be found in the `tests directory <http://github/com/brobin/drf-generators/tree/master/tests>`_. Instructions on running them can be found in the test project's README.
 
 
 -------
