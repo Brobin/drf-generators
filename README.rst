@@ -78,7 +78,7 @@ Option                     Action
 ``--serializers``          Generate only Serializers for your app.
 ``--views``                Generate only Views for your app.
 ``--urls``                 Generate only urls for your app.
-``--apiview``              Use APIView classes instead of ViewSet classes.
+``--apiview``              Use APIView classes instead of ViewSet classes, and urls instead of Router
 ========================== ===================================================
 
 
