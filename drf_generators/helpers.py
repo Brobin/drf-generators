@@ -6,9 +6,13 @@ __all__ = ['write_file']
 def write_file(content, filename, app):
     name = os.path.join(os.path.dirname(app.__file__), filename)
     if os.path.exists(name):
-        message = 'Are you sure you want to overwrite %s? (y/n)' % filename
+        message = "Are you sure you want to overwrite %s? (y/n)" % filename
+        try:
+            input = raw_input # py2 compatibility
+        except NameError:
+            pass
         response = input(message)
-        if response != 'y':
+        if response != "y":
             return False
     new_file = open(name, 'w+')
     new_file.write(content)

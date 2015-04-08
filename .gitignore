@@ -29,4 +29,5 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Virtualenv
-venv
+py2venv
+py3venv
