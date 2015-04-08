@@ -2,12 +2,11 @@
 Templates for generatring DRF Serializer and View classes.
 """
 
-__all__ = ['SERIALIZER_TEMPLATE', 'API_VIEW_TEMPLATE',
-           'API_URL_TEMPLATE', 'VIEW_SET_ROUTER_TEMPLATE',
-           'VIEW_SET_TEMPLATE']
+__all__ = ['SERIALIZER', 'API_VIEW', 'API_URL', 'VIEW_SET_URL',
+           'VIEW_SET_VIEW']
 
 
-SERIALIZER_TEMPLATE = """
+SERIALIZER = """
 from rest_framework.serializers import ModelSerializer
 from {{ app }}.models import {{ models | join:', ' }}
 
@@ -21,7 +20,7 @@ class {{ detail.name }}Serializer(ModelSerializer):
 {% endfor %}"""
 
 
-API_URL_TEMPLATE = """
+API_URL = """
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from {{ app }} import views
@@ -36,7 +35,7 @@ urlpatterns = patterns('',
 """
 
 
-API_VIEW_TEMPLATE = """
+API_VIEW = """
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -93,7 +92,7 @@ class {{ model }}APIListView(APIView):
 """
 
 
-VIEW_SET_ROUTER_TEMPLATE = """
+VIEW_SET_URL = """
 from rest_framework.routers import DefaultRouter
 from {{ app }} import views
 
@@ -106,7 +105,7 @@ urlpatterns = router.urls
 """
 
 
-VIEW_SET_TEMPLATE = """
+VIEW_SET_VIEW = """
 from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response

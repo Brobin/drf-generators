@@ -12,4 +12,6 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        generate_serializers(app_config)
+        generator = BaseGenerator(app_config)
+        result = generator.generate_urls()
+        print(result)
