@@ -145,7 +145,7 @@ When running the generator with the ``--apiview`` option, you will get the follo
 Tests
 -----
 
-A full application built with drf-generators can be found in the `tests <http://github/com/brobin/drf-generators/blob/master/tests>`_ directory. Instructions on running them can be found in the test project's README.
+A full application built with drf-generators can be found in the `tests <http://github/com/brobin/drf-generators/tree/master/tests>`_ directory. Instructions on running them can be found in the test project's README.
 
 
 ----
