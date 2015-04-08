@@ -20,6 +20,7 @@ Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
 * `Serializers`_
 * `Views`_
 * `Urls`_
+* `Tests`_
 * `License`_
 
 ------------
@@ -40,11 +41,6 @@ Clone the repo and install manually:
     $ cd drf-generators
     $ python setup.py install
 
-
------
-Usage
------
-
 To use DRF Generator, add it your INSTALLED_APPS.
 
 .. code-block:: python
@@ -56,22 +52,7 @@ To use DRF Generator, add it your INSTALLED_APPS.
         ...
     )
 
-Then run one of the following commands, where ``app`` is the application to generate an API for.
-
-======================== ===================================================
-Command                  Action
-======================== ===================================================
-``generate-serializers`` Generate Serializers for your app.
-``generate-views``       Generate Views for your app.
-``generate-urls``        Generate urls for your app.
-``generate-api``         Generate Serializers, Views, and urls for your app.
-======================== ===================================================
-
-.. code-block:: bash
-
-   $ python manage.py {command} {app}
-
-*Note*: In order to use the APIListView classes, you must have the following rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
+*Note*: In order to use the APIListView classes, you must have the rest framework DEFAULT_PAGINATION_CLASS and PAGE_SIZE set.
 
 .. code-block:: python
 
@@ -79,6 +60,27 @@ Command                  Action
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE': 15
     }
+
+
+-----
+Usage
+-----
+
+To use the generator run one of the following commands, where ``app`` is the application to generate an API for.
+
+.. code-block:: bash
+
+   $ python manage.py generate {options} {app}
+
+========================== ===================================================
+Option                     Action
+========================== ===================================================
+``--serializers``          Generate only Serializers for your app.
+``--views``                Generate only Views for your app.
+``--urls``                 Generate only urls for your app.
+``--apiview``              Use APIView classes instead of ViewSet classes, and urls instead of Router
+========================== ===================================================
+
 
 -----------
 Serializers
@@ -101,7 +103,24 @@ Views
 
 DRF Generator also takes care of all of your basic CRUD API views using your models and the generated serializers.
 
-DRF Generator creates a basic CRUD API View and List View for each model. The basic CRUD view has methods for ``GET``, ``PUT``, and ``DELETE``. The List View has a ``GET`` method that returns a paginated result of the model, and a ``POST`` method to save a new model.
+By default, DRF Generator will create ViewSet View lcasses like the following for your models.
+
+.. code-block:: python
+
+    class CategoryViewSet(ViewSet):
+
+        def list(self, request):
+            ...
+        def create(self, request):
+            ...
+        def retrieve(self, request, pk=None):
+            ...
+        def update(self, request, pk=None):
+            ...
+        def destroy(self, request, pk=None):
+            ...
+
+When running the generator with the ``--apiview`` option, you will get the following API Views.
 
 .. code-block:: python
 
@@ -109,21 +128,24 @@ DRF Generator creates a basic CRUD API View and List View for each model. The ba
 
         def get(self, request, id, format=None):
             ...
-
         def put(self, request, id, format=None):
             ...
-
         def delete(self, request, id, format=None):
             ...
-
 
     class UserAPIListView(APIView):
 
         def get(self, request, format=None):
             ...
-
         def post(self, request, format=None):
             ...
+
+
+-----
+Tests
+-----
+
+A full application built with drf-generators can be found in the `tests <http://github/com/brobin/drf-generators/blob/master/tests>`_ directory. Instructions on running them can be found in the test project's README.
 
 
 ----
@@ -131,6 +153,18 @@ Urls
 ----
 
 Finally, DRF Generator will create you a default ``urls.py`` in the following format.
+
+By default, DRF Generator will create rouserce route based urls like the following.
+
+.. code-block:: python
+
+    router = SimpleRouter()
+
+    router.register(r'model', views.ModelViewSet, 'Model')
+
+    urlpatterns = router.urls
+
+If you run the generatro with the ``--apiview`` option, you will get urls like the following.
 
 .. code-block:: python
 
