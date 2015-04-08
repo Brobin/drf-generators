@@ -5,7 +5,7 @@ import os.path
 from drf_generators.templates import *
 from drf_generators.helpers import write_file
 
-__all__ = ['APIViewGenerator', 'ViewSetGenerator']
+__all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator']
 
 
 class BaseGenerator(object):
