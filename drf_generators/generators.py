@@ -16,6 +16,7 @@ class BaseGenerator(object):
         self.name = app_config.name
         self.serializer_template = Template(SERIALIZER)
         self.models = self.get_model_names()
+        self.serializers = self.get_serializer_names()
 
     def generate_serializers(self):
         content = self.serializer_content()
@@ -43,13 +44,14 @@ class BaseGenerator(object):
 
     def serializer_content(self):
         details = self.get_model_details()
-        context = Context({ 'app': self.name, 'models': self.models, 
-                            'details': details})
+        context = Context({'app': self.name, 'models': self.models, 
+                           'details': details})
         content = self.serializer_template.render(context)
         return content
 
     def view_content(self):
-        context = Context({ 'app': self.name, 'models': self.models,})
+        context = Context({'app': self.name, 'models': self.models,
+                           'serializers': self.serializers})
         return self.view_template.render(context)
 
     def url_content(self):
@@ -67,6 +69,9 @@ class BaseGenerator(object):
 
     def get_model_names(self):
         return [m.__name__ for m in self.app_config.get_models()]
+
+    def get_serializer_names(self):
+        return [m + 'Serializer' for m in self.models]
 
 
 class APIViewGenerator(BaseGenerator):

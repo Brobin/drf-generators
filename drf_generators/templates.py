@@ -93,13 +93,13 @@ class {{ model }}APIListView(APIView):
 
 
 VIEW_SET_URL = """
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from {{ app }} import views
 
 
-router = DefaultRouter()
+router = SimpleRouter()
 {% for model in models %}
-router.register(r'{{ model | lower }}', views.{{ model }}ViewSet){% endfor %}
+router.register(r'{{ model | lower }}', views.{{ model }}ViewSet, '{{model}}'){% endfor %}
 
 urlpatterns = router.urls
 """
