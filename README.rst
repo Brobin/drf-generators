@@ -20,6 +20,7 @@ Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
 * `Serializers`_
 * `Views`_
 * `Urls`_
+* `Tests`_
 * `License`_
 
 ------------
@@ -138,6 +139,13 @@ When running the generator with the ``--apiview`` option, you will get the follo
             ...
         def post(self, request, format=None):
             ...
+
+
+-----
+Tests
+-----
+
+A full application built with drf-generators can be found in the `tests <http://github/com/brobin/drf-generators/blob/master/tests>`_ directory. Instructions on running them can be found in the test project's README.
 
 
 ----
