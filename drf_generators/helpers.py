@@ -8,10 +8,10 @@ def write_file(content, filename, app):
     if os.path.exists(name):
         message = "Are you sure you want to overwrite %s? (y/n): " % filename
         try:
-            input = raw_input # py2 compatibility
+            prompt = raw_input # py2 compatibility
         except NameError:
-            pass
-        response = input(message)
+            prompt = input
+        response = prompt(message)
         if response != "y":
             return False
     new_file = open(name, 'w+')
