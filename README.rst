@@ -253,7 +253,9 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
     :alt: License
 
 .. |django| image:: https://img.shields.io/badge/Django-1.7, 1.8-orange.svg?style=flat-square
+    :target: http://djangoproject.com/
     :alt: Django 1.7, 1.8
 
 .. |drf| image:: https://img.shields.io/badge/DRF-3.0, 3.1-orange.svg?style=flat-square
+    :target: http://www.django-rest-framework.org/
     :alt: DRF 3.0, 3.1
