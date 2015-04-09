@@ -12,6 +12,9 @@ class Command(AppCommand):
         parser.add_argument('-f', '--format',
                             dest='format',
                             default='viewset')
+        parser.add_argument('--force',
+                           dest='force',
+                           action='store_true')
         parser.add_argument('--serializers',
                             dest='serializers',
                             action='store_true')
@@ -26,12 +29,14 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
+        force = options['force'] or False
+
         if options['format'] == 'viewset':
-            generator = ViewSetGenerator(app_config)
+            generator = ViewSetGenerator(app_config, force)
         elif options['format'] == 'apiview':
-            generator = APIViewGenerator(app_config)
+            generator = APIViewGenerator(app_config, force)
         elif options['format'] == 'function':
-            generator = FunctionViewGenerator(app_config)
+            generator = FunctionViewGenerator(app_config, force)
         else:
             message = '\'%s\' is not a valid format.' % options['format'] 
             message += '(viewset, apiview, function)'
