@@ -10,12 +10,11 @@ SERIALIZER = """
 from rest_framework.serializers import ModelSerializer
 from {{ app }}.models import {{ models | join:', ' }}
 
-{% for detail in details %}
-class {{ detail.name }}Serializer(ModelSerializer):
+{% for model in models %}
+class {{ model }}Serializer(ModelSerializer):
 
     class Meta:
-        model = {{ detail.name }}
-        fields = ({{ detail.fields | safe }})
+        model = {{ model }}
 
 {% endfor %}"""
 
