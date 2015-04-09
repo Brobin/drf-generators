@@ -16,7 +16,7 @@ class Command(AppCommand):
         parser.add_argument('--force',
                            dest='force',
                            action='store_true',
-                           help='force overwrite files (default: False')
+                           help='force overwrite files')
         parser.add_argument('--serializers',
                             dest='serializers',
                             action='store_true',
