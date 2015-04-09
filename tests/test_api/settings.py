@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'drf_generators',
     'api_v1',
     'api_v2',
+    'api_v3',
 )
 
 MIDDLEWARE_CLASSES = (

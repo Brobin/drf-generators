@@ -9,9 +9,9 @@ class Command(AppCommand):
     args = "[appname ...]"
 
     def add_arguments(self, parser):
-        parser.add_argument('--apiview',
-                            dest='apiview',
-                            action='store_true')
+        parser.add_argument('-f', '--format',
+                            dest='format',
+                            default='viewset')
         parser.add_argument('--serializers',
                             dest='serializers',
                             action='store_true')
@@ -26,10 +26,16 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        if options['apiview']:
-            generator = APIViewGenerator(app_config)
-        else:
+        if options['format'] == 'viewset':
             generator = ViewSetGenerator(app_config)
+        elif options['format'] == 'apiview':
+            generator = APIViewGenerator(app_config)
+        elif options['format'] == 'function':
+            generator = FunctionViewGenerator(app_config)
+        else:
+            message = '\'%s\' is not a valid format.' % options['format'] 
+            message += '(viewset, apiview, function)'
+            raise CommandError(message)
 
         if options['serializers']:
             result = generator.generate_serializers()

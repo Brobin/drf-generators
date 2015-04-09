@@ -2,10 +2,14 @@
 from django.template import Template, Context
 import os.path
 
-from drf_generators.templates import *
+from drf_generators.templates.serializer import SERIALIZER
+from drf_generators.templates.apiview import API_URL, API_VIEW
+from drf_generators.templates.viewset import VIEW_SET_URL, VIEW_SET_VIEW
+from drf_generators.templates.function import FUNCTION_URL, FUNCTION_VIEW
 from drf_generators.helpers import write_file
 
-__all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator']
+__all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator',
+           'FunctionViewGenerator']
 
 
 class BaseGenerator(object):
@@ -43,10 +47,8 @@ class BaseGenerator(object):
             return 'Url generation cancelled'
 
     def serializer_content(self):
-        details = self.get_model_details()
         context = Context({'app': self.name, 'models': self.models})
-        content = self.serializer_template.render(context)
-        return content
+        return self.serializer_template.render(context)
 
     def view_content(self):
         context = Context({'app': self.name, 'models': self.models,
@@ -78,4 +80,11 @@ class ViewSetGenerator(BaseGenerator):
         self.view_template = Template(VIEW_SET_VIEW)
         self.url_template = Template(VIEW_SET_URL)
         super(ViewSetGenerator, self).__init__(app_config)
+
+class FunctionViewGenerator(BaseGenerator):
+
+    def __init__(self, app_config):
+        self.view_template = Template(FUNCTION_VIEW)
+        self.url_template = Template(FUNCTION_URL)
+        super(FunctionViewGenerator, self).__init__(app_config)
 

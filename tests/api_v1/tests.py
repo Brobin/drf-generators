@@ -19,7 +19,7 @@ class PostAPITest(APITestCase):
 
     def test_list_post(self):
         self.set_up()
-        url = '/api/v2/post'
+        url = '/api/v1/post/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 

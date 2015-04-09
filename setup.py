@@ -8,19 +8,19 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='drf-generators',
-    version='0.1.6',
+    version='0.1.7',
 
     description='Generate DRF Serializers, Views, and urls for your API aplication.',
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
-    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.6.zip',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.1.7.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
     license='MIT',
 
-    packages=['drf_generators', 'drf_generators.management.commands'],
+    packages=['drf_generators', 'drf_generators.templates', 'drf_generators.management.commands'],
     include_package_data=True,
     install_requires=['Django>=1.7', 'djangorestframework>=3.1.0'],
 

@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/', include('api_v1.urls')),
     url(r'^api/v2/', include('api_v2.urls')),
+    url(r'^api/v3/', include('api_v3.urls')),
 
 ]
