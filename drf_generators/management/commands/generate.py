@@ -11,19 +11,24 @@ class Command(AppCommand):
     def add_arguments(self, parser):
         parser.add_argument('-f', '--format',
                             dest='format',
-                            default='viewset')
+                            default='viewset',
+                            help='view format (default: viewset)')
         parser.add_argument('--force',
                            dest='force',
-                           action='store_true')
+                           action='store_true',
+                           help='force overwrite files (default: False')
         parser.add_argument('--serializers',
                             dest='serializers',
-                            action='store_true')
+                            action='store_true',
+                            help='generate serializers only')
         parser.add_argument('--views',
                             dest='views',
-                            action='store_true')
+                            action='store_true',
+                            help='generate views only')
         parser.add_argument('--urls',
                             dest='urls',
-                            action='store_true')
+                            action='store_true',
+                            help='generate urls only')
 
     def handle_app_config(self, app_config, **options):
         if app_config.models_module is None:
