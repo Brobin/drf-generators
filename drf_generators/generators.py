@@ -84,10 +84,10 @@ class BaseGenerator(object):
 
 class APIViewGenerator(BaseGenerator):
 
-    def __init__(self, app_config):
+    def __init__(self, app_config, force):
         self.view_template = Template(API_VIEW)
         self.url_template = Template(API_URL)
-        super(APIViewGenerator, self).__init__(app_config)
+        super(APIViewGenerator, self).__init__(app_config, force)
 
 
 class ViewSetGenerator(BaseGenerator):

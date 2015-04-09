@@ -81,8 +81,15 @@ Option                     Action
 ``--serializers``          Generate only Serializers for your app.
 ``--views``                Generate only Views for your app.
 ``--urls``                 Generate only urls for your app.
-``-f``, ``--format``       Format to use when generating views and urls. Valid options: viewset, apiview, function. Default: viewset.
+``--force``                Overwrite existing files without the warning prompt.
+``-f``, ``--format``       Format to use when generating views and urls. Valid options: ``viewset``, ``apiview``, ``function``. Default: ``viewset``.
 ========================== ===================================================
+
+**Example:** Generate everything for the app ``api_v1`` with function style views, overwriting existing files.
+
+.. code-block:: bash
+
+    $ python manage.py generate api_v1 --format function --force
 
 -------------------
 
