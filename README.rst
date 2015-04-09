@@ -3,15 +3,13 @@
 DRF Generators
 ==============
 
-Writing APIs can be boring and repetitive work. Don't write another CRUDdy view in Django Rest Framework. With DRF Generators, one simple command will create all of your API Views, Serializers, and even Urls for your Django Rest Framework application!
+Writing APIs can be boring and repetitive work. Don't write another CRUDdy view in `Django Rest Framework <http://github.com/tomchristie/django-rest-framework>`_. With DRF Generators, one simple command will generate all of your Views, Serializers, and even Urls for your Django Rest Framework application!
 
 This is **not** intended to give you a production quality API. It was intended to jumpstart your development and save you from writing the same code over and over for each model.
 
-Compatible with Django >= 1.7 and Django Rest Framework 3.1.0
-
 ---------------
 
-|python| |pypi| |license|
+|python| |pypi| |license| |django| |drf|
 
 ---------------
 
@@ -43,7 +41,7 @@ or Clone the repo and install manually:
     $ cd drf-generators
     $ python setup.py install
 
-To use DRF Generator, add it your INSTALLED_APPS.
+To use DRF Generators, add it your INSTALLED_APPS.
 
 .. code-block:: python
 
@@ -69,7 +67,7 @@ To use DRF Generator, add it your INSTALLED_APPS.
 Usage
 =====
 
-To use the generator the following command, where ``app`` is the application to generate an API for.
+To use the generators, run the following command, where ``app`` is the application to generate an API for.
 
 .. code-block:: bash
 
@@ -97,7 +95,7 @@ Option                     Action
 Serializers
 ===========
 
-Drf Generators will create ``serializers.py`` for your application. IT currently uses rest framework's ``ModelSerializer`` for base serialization of the models defined in ``models.py``.
+Drf Generators will create ``serializers.py`` for your application. It currently uses rest framework's ``ModelSerializer`` for serialization of the models defined in ``models.py``.
 
 .. code-block:: python
 
@@ -118,7 +116,7 @@ DRF Generators will create ``views.py`` for your application. It can generate ``
 ViewSet
 -------
 
-``--format viewset``
+``python manage.py generate api  --format viewset``
 
 .. code-block:: python
 
@@ -139,7 +137,7 @@ ViewSet
 APIView
 -------
 
-``--format apiview``
+``python manage.py generate api --format apiview``
 
 .. code-block:: python
 
@@ -163,7 +161,7 @@ APIView
 Function
 --------
 
-``--format function``
+``python manage.py generate api --format function``
 
 .. code-block:: python
 
@@ -232,7 +230,7 @@ Function urls
 Tests
 =====
 
-A full application built with drf-generators can be found in the `tests directory <http://github.com/brobin/drf-generators/tree/master/tests>`_. Instructions on running them can be found in the test project's README.
+A full application built with drf-generators can be found in the `tests directory <http://github.com/brobin/drf-generators/tree/master/tests>`_. Instructions on running the tests can be found in the test project's README.
 
 
 =======
@@ -253,3 +251,7 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
 .. |license| image:: https://pypip.in/license/drf-generators/badge.svg?style=flat-square
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: License
+
+.. |django| image:: https://img.shields.io/badge/Django-1.7,%201.8-orange.svg?style=flat-square
+
+.. |drf| image:: https://img.shields.io/badge/DRF-3.0,%203.1-orange.svg?style=flat-square
