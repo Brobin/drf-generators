@@ -2,16 +2,20 @@
 from django.template import Template, Context
 import os.path
 
-from drf_generators.templates import *
-from drf_generators.helpers import write_file
+from drf_generators.templates.serializer import SERIALIZER
+from drf_generators.templates.apiview import API_URL, API_VIEW
+from drf_generators.templates.viewset import VIEW_SET_URL, VIEW_SET_VIEW
+from drf_generators.templates.function import FUNCTION_URL, FUNCTION_VIEW
 
-__all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator']
+__all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator',
+           'FunctionViewGenerator']
 
 
 class BaseGenerator(object):
 
-    def __init__(self, app_config):
+    def __init__(self, app_config, force):
         self.app_config = app_config
+        self.force = force
         self.app = app_config.models_module
         self.name = app_config.name
         self.serializer_template = Template(SERIALIZER)
@@ -21,7 +25,7 @@ class BaseGenerator(object):
     def generate_serializers(self):
         content = self.serializer_content()
         filename = 'serializers.py'
-        if write_file(content, filename, self.app):
+        if self.write_file(content, filename):
             return '  - writing %s' % filename
         else:
             return 'Serializer generation cancelled'
@@ -29,7 +33,7 @@ class BaseGenerator(object):
     def generate_views(self):
         content = self.view_content()
         filename = 'views.py'
-        if write_file(content, filename, self.app):
+        if self.write_file(content, filename):
             return '  - writing %s' % filename
         else:
             return 'View generation cancelled'
@@ -37,17 +41,14 @@ class BaseGenerator(object):
     def generate_urls(self):
         content = self.url_content()
         filename = 'urls.py'
-        if write_file(content, filename, self.app):
+        if self.write_file(content, filename):
             return '  - writing %s' % filename
         else:
             return 'Url generation cancelled'
 
     def serializer_content(self):
-        details = self.get_model_details()
-        context = Context({'app': self.name, 'models': self.models, 
-                           'details': details})
-        content = self.serializer_template.render(context)
-        return content
+        context = Context({'app': self.name, 'models': self.models})
+        return self.serializer_template.render(context)
 
     def view_content(self):
         context = Context({'app': self.name, 'models': self.models,
@@ -58,34 +59,48 @@ class BaseGenerator(object):
         context = Context({'app': self.name, 'models': self.models})
         return self.url_template.render(context)
 
-    def get_model_details(self):
-        details = []
-        for m in self.app_config.get_models():
-            m_fields = m._meta.local_fields
-            fields = ', '.join(['\'%s\'' % x.name for x in m_fields])
-            detail = {'name': m._meta.object_name, 'fields': fields}
-            details.append(detail)
-        return details
-
     def get_model_names(self):
         return [m.__name__ for m in self.app_config.get_models()]
 
     def get_serializer_names(self):
         return [m + 'Serializer' for m in self.models]
 
+    def write_file(self, content, filename):
+        name = os.path.join(os.path.dirname(self.app.__file__), filename)
+        if os.path.exists(name) and  not self.force:
+            message = "Are you sure you want to overwrite %s? (y/n): " % filename
+            try:
+                prompt = raw_input  # python2
+            except NameError:
+                prompt = input  # python3
+            response = prompt(message)
+            if response != "y":
+                return False
+        new_file = open(name, 'w+')
+        new_file.write(content)
+        new_file.close()
+        return True
+
 
 class APIViewGenerator(BaseGenerator):
 
-    def __init__(self, app_config):
+    def __init__(self, app_config, force):
         self.view_template = Template(API_VIEW)
         self.url_template = Template(API_URL)
-        super(APIViewGenerator, self).__init__(app_config)
+        super(APIViewGenerator, self).__init__(app_config, force)
 
 
 class ViewSetGenerator(BaseGenerator):
 
-    def __init__(self, app_config):
+    def __init__(self, app_config, force):
         self.view_template = Template(VIEW_SET_VIEW)
         self.url_template = Template(VIEW_SET_URL)
-        super(ViewSetGenerator, self).__init__(app_config)
+        super(ViewSetGenerator, self).__init__(app_config, force)
+
+class FunctionViewGenerator(BaseGenerator):
+
+    def __init__(self, app_config, force):
+        self.view_template = Template(FUNCTION_VIEW)
+        self.url_template = Template(FUNCTION_URL)
+        super(FunctionViewGenerator, self).__init__(app_config, force)
 

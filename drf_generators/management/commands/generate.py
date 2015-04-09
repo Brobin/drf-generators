@@ -9,27 +9,43 @@ class Command(AppCommand):
     args = "[appname ...]"
 
     def add_arguments(self, parser):
-        parser.add_argument('--apiview',
-                            dest='apiview',
-                            action='store_true')
+        parser.add_argument('-f', '--format',
+                            dest='format',
+                            default='viewset',
+                            help='view format (default: viewset)')
+        parser.add_argument('--force',
+                           dest='force',
+                           action='store_true',
+                           help='force overwrite files')
         parser.add_argument('--serializers',
                             dest='serializers',
-                            action='store_true')
+                            action='store_true',
+                            help='generate serializers only')
         parser.add_argument('--views',
                             dest='views',
-                            action='store_true')
+                            action='store_true',
+                            help='generate views only')
         parser.add_argument('--urls',
                             dest='urls',
-                            action='store_true')
+                            action='store_true',
+                            help='generate urls only')
 
     def handle_app_config(self, app_config, **options):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        if options['apiview']:
-            generator = APIViewGenerator(app_config)
+        force = options['force'] or False
+
+        if options['format'] == 'viewset':
+            generator = ViewSetGenerator(app_config, force)
+        elif options['format'] == 'apiview':
+            generator = APIViewGenerator(app_config, force)
+        elif options['format'] == 'function':
+            generator = FunctionViewGenerator(app_config, force)
         else:
-            generator = ViewSetGenerator(app_config)
+            message = '\'%s\' is not a valid format.' % options['format'] 
+            message += '(viewset, apiview, function)'
+            raise CommandError(message)
 
         if options['serializers']:
             result = generator.generate_serializers()

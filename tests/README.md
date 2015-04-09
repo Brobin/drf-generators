@@ -6,7 +6,8 @@ This folder contains a test Django Rest Framework project featuring API Views, S
 | Project | API Style |
 | ------ | ------ |
 | api_v1 | ViewSet based Views and routes |
-| api_v2 | APIView style views and standard urls |
+| api_v2 | APIView based views and standard urls |
+| api_v2 | function based views and standard urls |
 
 Each app has 5 tests to test the basic functionality of the View, Serializers and Urls for the provided model (Post).
 
