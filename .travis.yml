@@ -10,7 +10,7 @@ env:
 install:
   - pip install -q Django==$DJANGO --use-mirrors
   - pip install pep8 --use-mirrors
-  - python setup.py -q install
+  - pip install -q -e . --use-mirrors
 before_script:
   - "pep8 drf_generators --exclude=templates && cd tests"
 script:
