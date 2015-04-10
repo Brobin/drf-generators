@@ -1,5 +1,3 @@
-        'Programming Language :: Python :: 3.4',
-
 ==============
 DRF Generators
 ==============
@@ -265,7 +263,7 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: License
 
-.. |travis| image:: https://img.shields.io/travis/brobin/drf-generators.svg
+.. |travis| image:: https://img.shields.io/travis/brobin/drf-generators.svg?style=flat-square
     :target: https://travis-ci.org/Brobin/drf-generators/
     :alt: Travis CI
 
