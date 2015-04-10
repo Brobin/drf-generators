@@ -67,13 +67,13 @@ class BaseGenerator(object):
 
     def write_file(self, content, filename):
         name = os.path.join(os.path.dirname(self.app.__file__), filename)
-        if os.path.exists(name) and  not self.force:
-            message = "Are you sure you want to overwrite %s? (y/n): " % filename
+        if os.path.exists(name) and not self.force:
+            msg = "Are you sure you want to overwrite %s? (y/n): " % filename
             try:
                 prompt = raw_input  # python2
             except NameError:
                 prompt = input  # python3
-            response = prompt(message)
+            response = prompt(msg)
             if response != "y":
                 return False
         new_file = open(name, 'w+')
@@ -97,10 +97,10 @@ class ViewSetGenerator(BaseGenerator):
         self.url_template = Template(VIEW_SET_URL)
         super(ViewSetGenerator, self).__init__(app_config, force)
 
+
 class FunctionViewGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
         self.view_template = Template(FUNCTION_VIEW)
         self.url_template = Template(FUNCTION_URL)
         super(FunctionViewGenerator, self).__init__(app_config, force)
-

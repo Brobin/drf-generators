@@ -14,9 +14,9 @@ class Command(AppCommand):
                             default='viewset',
                             help='view format (default: viewset)')
         parser.add_argument('--force',
-                           dest='force',
-                           action='store_true',
-                           help='force overwrite files')
+                            dest='force',
+                            action='store_true',
+                            help='force overwrite files')
         parser.add_argument('--serializers',
                             dest='serializers',
                             action='store_true',
@@ -43,7 +43,7 @@ class Command(AppCommand):
         elif options['format'] == 'function':
             generator = FunctionViewGenerator(app_config, force)
         else:
-            message = '\'%s\' is not a valid format.' % options['format'] 
+            message = '\'%s\' is not a valid format.' % options['format']
             message += '(viewset, apiview, function)'
             raise CommandError(message)
 
