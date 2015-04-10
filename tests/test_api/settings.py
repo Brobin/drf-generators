@@ -39,9 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_generators',
-    'api_v1',
-    'api_v2',
-    'api_v3',
+    'api',
 )
 
 MIDDLEWARE_CLASSES = (

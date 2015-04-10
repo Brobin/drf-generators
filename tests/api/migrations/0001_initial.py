@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('title', models.CharField(max_length=128)),
-                ('slug', models.SlugField(default='', max_length=128, blank=True)),
+                ('slug', models.SlugField(max_length=128, default='', blank=True)),
                 ('content', models.TextField()),
             ],
         ),
