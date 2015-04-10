@@ -1,8 +1,8 @@
 
-__all__ = ['MODEL_VIEW_SET_URL', 'MODEL_VIEW_SET_VIEW']
+__all__ = ['MODEL_URL', 'MODEL_VIEW']
 
 
-VIEW_SET_URL = """
+MODEL_URL = """
 from rest_framework.routers import SimpleRouter
 from {{ app }} import views
 
@@ -15,7 +15,7 @@ urlpatterns = router.urls
 """
 
 
-VIEW_SET_VIEW = """
+MODEL_VIEW = """
 from rest_framework.viewsets import ModelViewSet
 from {{ app }}.serializers import {{ serializers|join:', ' }}
 from {{ app }}.models import {{ models|join:', ' }}

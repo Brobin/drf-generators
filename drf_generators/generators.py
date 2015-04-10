@@ -6,9 +6,10 @@ from drf_generators.templates.serializer import SERIALIZER
 from drf_generators.templates.apiview import API_URL, API_VIEW
 from drf_generators.templates.viewset import VIEW_SET_URL, VIEW_SET_VIEW
 from drf_generators.templates.function import FUNCTION_URL, FUNCTION_VIEW
+from drf_generators.templates.modelviewset import MODEL_URL, MODEL_VIEW
 
 __all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator',
-           'FunctionViewGenerator']
+           'FunctionViewGenerator', 'ModelViewSetGenerator']
 
 
 class BaseGenerator(object):
@@ -104,3 +105,11 @@ class FunctionViewGenerator(BaseGenerator):
         self.view_template = Template(FUNCTION_VIEW)
         self.url_template = Template(FUNCTION_URL)
         super(FunctionViewGenerator, self).__init__(app_config, force)
+
+
+class ModelViewSetGenerator(BaseGenerator):
+
+    def __init__(self, app_config, force):
+        self.view_template = Template(MODEL_VIEW)
+        self.url_template = Template(MODEL_URL)
+        super(ModelViewSetGenerator, self).__init__(app_config, force)

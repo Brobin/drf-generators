@@ -109,3 +109,23 @@ class ViewSetTest(BaseTestCase):
 
     def test_viewset_delete(self):
         self.delete_post()
+
+
+class ModelViewSetTest(BaseTestCase):
+
+    def test_modelviewset_create(self):
+        print('\nTesting ModelViewSet API')
+        self.generate_api('modelviewset')
+        self.create_post()
+
+    def test_modelviewset_list(self):
+        self.list_post()
+
+    def test_modelviewset_retrieve(self):
+        self.retrieve_post()
+
+    def test_modelviewset_update(self):
+        self.update_post()
+
+    def test_modelviewset_delete(self):
+        self.delete_post()
