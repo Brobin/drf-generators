@@ -1,3 +1,4 @@
+        'Programming Language :: Python :: 3.4',
 
 ==============
 DRF Generators
@@ -9,7 +10,7 @@ This is **not** intended to give you a production quality API. It was intended t
 
 ---------------
 
-|python| |pypi| |license| |django| |drf|
+|python| |pypi| |license| |travis| |django| |drf|
 
 ---------------
 
@@ -80,7 +81,7 @@ Option                     Action
 ``--views``                Generate only Views for your app.
 ``--urls``                 Generate only urls for your app.
 ``--force``                Overwrite existing files without the warning prompt.
-``-f``, ``--format``       Format to use when generating views and urls. Valid options: ``viewset``, ``apiview``, ``function``. Default: ``viewset``.
+``-f``, ``--format``       Format to use when generating views and urls. Valid options: ``viewset``, ``apiview``, ``function``, ``modelviewset``. Default: ``viewset``.
 ========================== ===================================================
 
 **Example:** Generate everything for the app ``api_v1`` with function style views, overwriting existing files.
@@ -181,6 +182,18 @@ Function
         elif request.method == 'DELETE':
             ...
 
+-------------
+ModelViewSet
+-------------
+
+``python manag.epy generate api --format modelviewset``
+
+.. code-block:: python
+
+    class MyModelViewSet(ModelViewSet):
+        queryset = MyModel.objects.all()
+        serializer_class = MyModelSerializer
+
 -----------------
 
 ====
@@ -189,9 +202,9 @@ Urls
 
 Finally, DRF Generator will create you a default ``urls.py`` to match the View format you are using.
 
---------------
-ViewSet Routes
---------------
+----------------------------
+ViewSet & ModeViewSet Routes
+----------------------------
 
 .. code-block:: python
 
@@ -251,6 +264,10 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
 .. |license| image:: https://pypip.in/license/drf-generators/badge.svg?style=flat-square
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: License
+
+.. |travis| image:: https://img.shields.io/travis/brobin/drf-generators.svg
+    :target: https://travis-ci.org/Brobin/drf-generators/
+    :alt: Travis CI
 
 .. |django| image:: https://img.shields.io/badge/Django-1.8-orange.svg?style=flat-square
     :target: http://djangoproject.com/
