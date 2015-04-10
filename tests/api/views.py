@@ -2,8 +2,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from api_v1.serializers import PostSerializer
-from api_v1.models import Post
+from api.serializers import PostSerializer
+from api.models import Post
 
 
 class PostViewSet(ViewSet):

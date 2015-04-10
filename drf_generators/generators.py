@@ -6,9 +6,10 @@ from drf_generators.templates.serializer import SERIALIZER
 from drf_generators.templates.apiview import API_URL, API_VIEW
 from drf_generators.templates.viewset import VIEW_SET_URL, VIEW_SET_VIEW
 from drf_generators.templates.function import FUNCTION_URL, FUNCTION_VIEW
+from drf_generators.templates.modelviewset import MODEL_URL, MODEL_VIEW
 
 __all__ = ['BaseGenerator', 'APIViewGenerator', 'ViewSetGenerator',
-           'FunctionViewGenerator']
+           'FunctionViewGenerator', 'ModelViewSetGenerator']
 
 
 class BaseGenerator(object):
@@ -67,13 +68,13 @@ class BaseGenerator(object):
 
     def write_file(self, content, filename):
         name = os.path.join(os.path.dirname(self.app.__file__), filename)
-        if os.path.exists(name) and  not self.force:
-            message = "Are you sure you want to overwrite %s? (y/n): " % filename
+        if os.path.exists(name) and not self.force:
+            msg = "Are you sure you want to overwrite %s? (y/n): " % filename
             try:
                 prompt = raw_input  # python2
             except NameError:
                 prompt = input  # python3
-            response = prompt(message)
+            response = prompt(msg)
             if response != "y":
                 return False
         new_file = open(name, 'w+')
@@ -97,6 +98,7 @@ class ViewSetGenerator(BaseGenerator):
         self.url_template = Template(VIEW_SET_URL)
         super(ViewSetGenerator, self).__init__(app_config, force)
 
+
 class FunctionViewGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
@@ -104,3 +106,10 @@ class FunctionViewGenerator(BaseGenerator):
         self.url_template = Template(FUNCTION_URL)
         super(FunctionViewGenerator, self).__init__(app_config, force)
 
+
+class ModelViewSetGenerator(BaseGenerator):
+
+    def __init__(self, app_config, force):
+        self.view_template = Template(MODEL_VIEW)
+        self.url_template = Template(MODEL_URL)
+        super(ModelViewSetGenerator, self).__init__(app_config, force)
