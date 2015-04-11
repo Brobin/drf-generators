@@ -34,26 +34,29 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        force = options['force'] or False
+        force = options.has_key('force') or False
 
-        if options['format'] == 'viewset':
-            generator = ViewSetGenerator(app_config, force)
-        elif options['format'] == 'apiview':
-            generator = APIViewGenerator(app_config, force)
-        elif options['format'] == 'function':
-            generator = FunctionViewGenerator(app_config, force)
-        elif options['format'] == 'modelviewset':
-            generator = ModelViewSetGenerator(app_config, force)
+        if options.has_key('format'):
+            if options['format'] == 'viewset':
+                generator = ViewSetGenerator(app_config, force)
+            elif options['format'] == 'apiview':
+                generator = APIViewGenerator(app_config, force)
+            elif options['format'] == 'function':
+                generator = FunctionViewGenerator(app_config, force)
+            elif options['format'] == 'modelviewset':
+                generator = ModelViewSetGenerator(app_config, force)
+            else:
+                message = '\'%s\' is not a valid format.' % options['format']
+                message += '(viewset, apiview, function)'
+                raise CommandError(message)
         else:
-            message = '\'%s\' is not a valid format.' % options['format']
-            message += '(viewset, apiview, function)'
-            raise CommandError(message)
+            generator = ModelViewSetGenerator(app_config, force)
 
-        if options['serializers']:
+        if options.has_key('serializers'):
             result = generator.generate_serializers()
-        elif options['views']:
+        elif options.has_key('views'):
             result = generator.generate_views()
-        elif options['urls']:
+        elif options.has_key('urls'):
             result = generator.generate_urls()
         else:
             result = generator.generate_serializers() + '\n'
