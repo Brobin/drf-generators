@@ -1,5 +1,5 @@
 
-from django.core.management.base import AppCommand
+from django.core.management.base import AppCommand, CommandError
 from drf_generators.generators import *
 import django
 
@@ -35,14 +35,16 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        force = 'force' in options or False
-
         if django.VERSION[1] == 7:
-            force = 'force' in options or False
-            format = 'format' in options or None
-            serializers = 'serializers' in options or False
-            views = 'views' in options or False
-            urls = 'urls' in options or False
+            force = options['force'] if 'force' in options else False
+            format = options['format'] if 'format' in options else None
+            if 'serializers' in options
+                serializers = options['serializers']
+            else:
+                serializers = False
+            views = options['views'] if 'views' in options else False
+            urls = oprions['urls'] if 'urls' in options else False
+
         elif django.VERSION[1] == 8:
             force = options['force']
             format = options['format']
