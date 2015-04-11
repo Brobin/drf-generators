@@ -34,9 +34,9 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        force = options.has_key('force') or False
+        force = 'force' in options or False
 
-        if options.has_key('format'):
+        if 'format' in options:
             if options['format'] == 'viewset':
                 generator = ViewSetGenerator(app_config, force)
             elif options['format'] == 'apiview':
@@ -52,11 +52,11 @@ class Command(AppCommand):
         else:
             generator = ModelViewSetGenerator(app_config, force)
 
-        if options.has_key('serializers'):
+        if 'serializers' in options:
             result = generator.generate_serializers()
-        elif options.has_key('views'):
+        elif 'views' in options:
             result = generator.generate_views()
-        elif options.has_key('urls'):
+        elif 'urls' in options:
             result = generator.generate_urls()
         else:
             result = generator.generate_serializers() + '\n'
