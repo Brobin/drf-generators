@@ -1,6 +1,7 @@
 
 from django.core.management.base import AppCommand
 from drf_generators.generators import *
+import django
 
 
 class Command(AppCommand):
@@ -36,27 +37,39 @@ class Command(AppCommand):
 
         force = 'force' in options or False
 
-        if 'format' in options:
-            if options['format'] == 'viewset':
-                generator = ViewSetGenerator(app_config, force)
-            elif options['format'] == 'apiview':
-                generator = APIViewGenerator(app_config, force)
-            elif options['format'] == 'function':
-                generator = FunctionViewGenerator(app_config, force)
-            elif options['format'] == 'modelviewset':
-                generator = ModelViewSetGenerator(app_config, force)
-            else:
-                message = '\'%s\' is not a valid format.' % options['format']
-                message += '(viewset, apiview, function)'
-                raise CommandError(message)
+        if django.VERSION[1] == 7:
+            force = 'force' in options or False
+            format = 'format' in options or None
+            serializers = 'serializers' in options or False
+            views = 'views' in options or False
+            urls = 'urls' in options or False
+        elif django.VERSION[1] == 8:
+            force = options['force']
+            format = options['format']
+            serializers = options['serializers']
+            views = options['views']
+            urls = options['urls']
         else:
-            generator = ModelViewSetGenerator(app_config, force)
+            raise CommandError('You must be using Django 1.7 or 1.8')
 
-        if 'serializers' in options:
+        if format == 'viewset':
+            generator = ViewSetGenerator(app_config, force)
+        elif format == 'apiview':
+            generator = APIViewGenerator(app_config, force)
+        elif format == 'function':
+            generator = FunctionViewGenerator(app_config, force)
+        elif format == 'modelviewset' or format == None:
+            generator = ModelViewSetGenerator(app_config, force)
+        else:
+            message = '\'%s\' is not a valid format.' % options['format']
+            message += '(viewset, apiview, function)'
+            raise CommandError(message)
+
+        if serializers:
             result = generator.generate_serializers()
-        elif 'views' in options:
+        elif views:
             result = generator.generate_views()
-        elif 'urls' in options:
+        elif urls:
             result = generator.generate_urls()
         else:
             result = generator.generate_serializers() + '\n'
