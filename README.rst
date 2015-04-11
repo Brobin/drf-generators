@@ -184,7 +184,7 @@ Function
 ModelViewSet
 -------------
 
-``python manag.epy generate api --format modelviewset``
+``python manage.py generate api --format modelviewset``
 
 .. code-block:: python
 
