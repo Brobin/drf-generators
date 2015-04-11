@@ -38,7 +38,7 @@ class Command(AppCommand):
         if django.VERSION[1] == 7:
             force = options['force'] if 'force' in options else False
             format = options['format'] if 'format' in options else None
-            if 'serializers' in options
+            if 'serializers' in options:
                 serializers = options['serializers']
             else:
                 serializers = False
