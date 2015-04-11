@@ -58,7 +58,7 @@ class Command(AppCommand):
             generator = APIViewGenerator(app_config, force)
         elif format == 'function':
             generator = FunctionViewGenerator(app_config, force)
-        elif format == 'modelviewset' or format == None:
+        elif format == 'modelviewset' or format is None:
             generator = ModelViewSetGenerator(app_config, force)
         else:
             message = '\'%s\' is not a valid format.' % options['format']
