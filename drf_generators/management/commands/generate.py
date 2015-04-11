@@ -1,6 +1,7 @@
 
-from django.core.management.base import AppCommand
+from django.core.management.base import AppCommand, CommandError
 from drf_generators.generators import *
+import django
 
 
 class Command(AppCommand):
@@ -34,26 +35,43 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
-        force = options['force'] or False
+        if django.VERSION[1] == 7:
+            force = options['force'] if 'force' in options else False
+            format = options['format'] if 'format' in options else None
+            if 'serializers' in options:
+                serializers = options['serializers']
+            else:
+                serializers = False
+            views = options['views'] if 'views' in options else False
+            urls = oprions['urls'] if 'urls' in options else False
 
-        if options['format'] == 'viewset':
+        elif django.VERSION[1] == 8:
+            force = options['force']
+            format = options['format']
+            serializers = options['serializers']
+            views = options['views']
+            urls = options['urls']
+        else:
+            raise CommandError('You must be using Django 1.7 or 1.8')
+
+        if format == 'viewset':
             generator = ViewSetGenerator(app_config, force)
-        elif options['format'] == 'apiview':
+        elif format == 'apiview':
             generator = APIViewGenerator(app_config, force)
-        elif options['format'] == 'function':
+        elif format == 'function':
             generator = FunctionViewGenerator(app_config, force)
-        elif options['format'] == 'modelviewset':
+        elif format == 'modelviewset' or format is None:
             generator = ModelViewSetGenerator(app_config, force)
         else:
             message = '\'%s\' is not a valid format.' % options['format']
             message += '(viewset, apiview, function)'
             raise CommandError(message)
 
-        if options['serializers']:
+        if serializers:
             result = generator.generate_serializers()
-        elif options['views']:
+        elif views:
             result = generator.generate_views()
-        elif options['urls']:
+        elif urls:
             result = generator.generate_urls()
         else:
             result = generator.generate_serializers() + '\n'

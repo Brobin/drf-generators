@@ -267,7 +267,7 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
     :target: https://travis-ci.org/Brobin/drf-generators/
     :alt: Travis CI
 
-.. |django| image:: https://img.shields.io/badge/Django-1.8-orange.svg?style=flat-square
+.. |django| image:: https://img.shields.io/badge/Django-1.7, 1.8-orange.svg?style=flat-square
     :target: http://djangoproject.com/
     :alt: Django 1.7, 1.8
 
