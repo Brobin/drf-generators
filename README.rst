@@ -4,7 +4,7 @@ DRF Generators
 
 Writing APIs can be boring and repetitive work. Don't write another CRUDdy view in `Django Rest Framework <http://github.com/tomchristie/django-rest-framework>`_. With DRF Generators, one simple command will generate all of your Views, Serializers, and even Urls for your Django Rest Framework application!
 
-For a full step-by-step tutorial, check out my `blog post <http://brobin.me/blog/2015/4/13/how-to-write-an-api-in-django-in-minutes>`_!
+For a full step-by-step tutorial, check out my `blog post <http://brobin.me/blog/2015/4/13/how-to-quickly-write-an-api-in-django>`_!
 
 This is **not** intended to give you a production quality API. It was intended to jumpstart your development and save you from writing the same code over and over for each model.
 
