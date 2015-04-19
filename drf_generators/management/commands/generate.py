@@ -1,6 +1,7 @@
 
 from django.core.management.base import AppCommand, CommandError
 from drf_generators.generators import *
+from optparse import make_option
 import django
 
 
@@ -9,27 +10,24 @@ class Command(AppCommand):
 
     args = "[appname ...]"
 
-    def add_arguments(self, parser):
-        parser.add_argument('-f', '--format',
-                            dest='format',
-                            default='viewset',
-                            help='view format (default: viewset)')
-        parser.add_argument('--force',
-                            dest='force',
-                            action='store_true',
-                            help='force overwrite files')
-        parser.add_argument('--serializers',
-                            dest='serializers',
-                            action='store_true',
-                            help='generate serializers only')
-        parser.add_argument('--views',
-                            dest='views',
-                            action='store_true',
-                            help='generate views only')
-        parser.add_argument('--urls',
-                            dest='urls',
-                            action='store_true',
-                            help='generate urls only')
+    base_options = (
+        make_option('-f', '--format', dest='format', default='viewset',
+                    help='view format (default: viewset)'),
+
+        make_option('--force', dest='force', action='store_true',
+                    help='force overwrite files'),
+
+        make_option('--serializers', dest='serializers', action='store_true',
+                    help='generate serializers only'),
+
+        make_option('--views', dest='views', action='store_true',
+                    help='generate views only'),
+
+        make_option('--urls', dest='urls', action='store_true',
+                    help='generate urls only'),
+    )
+
+    option_list = AppCommand.option_list + base_options
 
     def handle_app_config(self, app_config, **options):
         if app_config.models_module is None:
@@ -43,7 +41,7 @@ class Command(AppCommand):
             else:
                 serializers = False
             views = options['views'] if 'views' in options else False
-            urls = oprions['urls'] if 'urls' in options else False
+            urls = options['urls'] if 'urls' in options else False
 
         elif django.VERSION[1] == 8:
             force = options['force']
