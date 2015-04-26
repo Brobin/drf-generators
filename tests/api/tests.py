@@ -5,16 +5,22 @@ from django.core.management import call_command
 
 class BaseTestCase(APITestCase):
 
+    def init_data(self):
+        self.good_url = '/api/post/1'
+        self.good_data = {"title": "Test", "slug": "test", "content": "test"}
+        self.bad_url = '/api/post/15'
+        self.bad_data = {"bad_data": 69, "slug": "test", "content": "Test"}
+
     def generate_api(self, format):
         args = ['api']
         opts = {'format': format, 'force': True}
         call_command('generate', *args, **opts)
+        self.init_data()
 
     def set_up(self):
         url = '/api/post/'
-        data = {"title": "Test Post", "slug": "test", "content": "test"}
-        response = self.client.post(url, data, format='json')
-        return (response, data)
+        response = self.client.post(url, self.good_data, format='json')
+        return (response, self.good_data)
 
     def create_post(self):
         response, data = self.set_up()
@@ -22,6 +28,11 @@ class BaseTestCase(APITestCase):
         self.assertEqual(response.data["title"], data["title"])
         self.assertEqual(response.data["slug"], data["slug"])
         self.assertEqual(response.data["content"], data["content"])
+
+    def create_post_error(self):
+        url = '/api/post/'
+        response = self.client.post(url, self.bad_data, format='json')
+        self.assertEqual(response.status_code, 400)
 
     def list_post(self):
         self.set_up()
@@ -31,64 +42,67 @@ class BaseTestCase(APITestCase):
 
     def retrieve_post(self):
         self.set_up()
-        url = '/api/post/1'
-        response = self.client.get(url)
+        response = self.client.get(self.good_url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["title"], "Test Post")
+        self.assertEqual(response.data["title"], "Test")
+
+    def retrieve_post_error(self):
+        response = self.client.get(self.bad_url)
+        self.assertEqual(response.status_code, 404)
 
     def update_post(self):
         self.set_up()
-        url = '/api/post/1'
-        data = {"title": "Test Post", "slug": "test", "content": "Test"}
-        response = self.client.put(url, data, format='json')
+        response = self.client.put(self.good_url, self.good_data, format='json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["content"], data["content"])
+        self.assertEqual(response.data["content"], self.good_data["content"])
+
+    def update_post_error(self):
+        response = self.client.put(self.bad_url, self.good_data, format='json')
+        self.assertEqual(response.status_code, 404)
+        self.set_up()
+        response = self.client.put(self.good_url, self.bad_data, format='json')
+        self.assertEqual(response.status_code, 400)
 
     def delete_post(self):
         self.set_up()
-        url = '/api/post/1'
-        response = self.client.delete(url)
+        response = self.client.delete(self.good_url)
         self.assertEqual(response.status_code, 204)
+
+    def delete_post_error(self):
+        response = self.client.delete(self.good_url)
+        self.assertEqual(response.status_code, 404)
 
 
 class APIViewTest(BaseTestCase):
 
-    def test_apiview_create(self):
+    def test_apiview(self):
         print('\nTesting APIView API')
         self.generate_api('apiview')
         self.create_post()
-
-    def test_apiview_list(self):
+        self.create_post_error()
         self.list_post()
-
-    def test_apiview_retrieve(self):
         self.retrieve_post()
-
-    def test_apiview_update(self):
+        self.retrieve_post_error()
         self.update_post()
-
-    def test_apiview_delete(self):
+        self.update_post_error()
         self.delete_post()
+        self.delete_post_error()
 
 
 class FunctionViewTest(BaseTestCase):
 
-    def test_function_create(self):
+    def test_function(self):
         print('\nTesting function API')
         self.generate_api('function')
         self.create_post()
-
-    def test_function_list(self):
+        self.create_post_error()
         self.list_post()
-
-    def test_function_retrieve(self):
         self.retrieve_post()
-
-    def test_function_update(self):
+        self.retrieve_post_error()
         self.update_post()
-
-    def test_function_delete(self):
+        self.update_post_error()
         self.delete_post()
+        self.delete_post_error()
 
 
 class ViewSetTest(BaseTestCase):
@@ -97,18 +111,14 @@ class ViewSetTest(BaseTestCase):
         print('\nTesting ViewSet API')
         self.generate_api('viewset')
         self.create_post()
-
-    def test_viewset_list(self):
+        self.create_post_error()
         self.list_post()
-
-    def test_viewset_retrieve(self):
         self.retrieve_post()
-
-    def test_viewset_update(self):
+        self.retrieve_post_error()
         self.update_post()
-
-    def test_viewset_delete(self):
+        self.update_post_error()
         self.delete_post()
+        self.delete_post_error()
 
 
 class ModelViewSetTest(BaseTestCase):
@@ -117,15 +127,11 @@ class ModelViewSetTest(BaseTestCase):
         print('\nTesting ModelViewSet API')
         self.generate_api('modelviewset')
         self.create_post()
-
-    def test_modelviewset_list(self):
+        self.create_post_error()
         self.list_post()
-
-    def test_modelviewset_retrieve(self):
         self.retrieve_post()
-
-    def test_modelviewset_update(self):
+        self.retrieve_post_error()
         self.update_post()
-
-    def test_modelviewset_delete(self):
+        self.update_post_error()
         self.delete_post()
+        self.delete_post_error()
