@@ -6,6 +6,7 @@ from django.core.management import call_command
 class BaseTestCase(APITestCase):
 
     def init_data(self):
+        self.url = '/api/post/'
         self.good_url = '/api/post/1'
         self.good_data = {"title": "Test", "slug": "test", "content": "test"}
         self.bad_url = '/api/post/15'
@@ -18,8 +19,7 @@ class BaseTestCase(APITestCase):
         self.init_data()
 
     def set_up(self):
-        url = '/api/post/'
-        response = self.client.post(url, self.good_data, format='json')
+        response = self.client.post(self.url, self.good_data, format='json')
         return (response, self.good_data)
 
     def create_post(self):
@@ -30,14 +30,12 @@ class BaseTestCase(APITestCase):
         self.assertEqual(response.data["content"], data["content"])
 
     def create_post_error(self):
-        url = '/api/post/'
-        response = self.client.post(url, self.bad_data, format='json')
+        response = self.client.post(self.url, self.bad_data, format='json')
         self.assertEqual(response.status_code, 400)
 
     def list_post(self):
         self.set_up()
-        url = '/api/post/'
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
     def retrieve_post(self):
