@@ -70,12 +70,9 @@ class BaseTestCase(APITestCase):
         response = self.client.delete(self.good_url)
         self.assertEqual(response.status_code, 404)
 
-
-class APIViewTest(BaseTestCase):
-
-    def test_apiview(self):
-        print('\nTesting APIView API')
-        self.generate_api('apiview')
+    def run_tests(self, type):
+        print('\nTesting {} API'.format(type))
+        self.generate_api(type)
         self.create_post()
         self.create_post_error()
         self.list_post()
@@ -85,51 +82,27 @@ class APIViewTest(BaseTestCase):
         self.update_post_error()
         self.delete_post()
         self.delete_post_error()
+
+
+class APIViewTest(BaseTestCase):
+
+    def test_apiview(self):
+        self.run_tests('apiview')
 
 
 class FunctionViewTest(BaseTestCase):
 
     def test_function(self):
-        print('\nTesting function API')
-        self.generate_api('function')
-        self.create_post()
-        self.create_post_error()
-        self.list_post()
-        self.retrieve_post()
-        self.retrieve_post_error()
-        self.update_post()
-        self.update_post_error()
-        self.delete_post()
-        self.delete_post_error()
+        self.run_tests('function')
 
 
 class ViewSetTest(BaseTestCase):
 
     def test_viewset_create(self):
-        print('\nTesting ViewSet API')
-        self.generate_api('viewset')
-        self.create_post()
-        self.create_post_error()
-        self.list_post()
-        self.retrieve_post()
-        self.retrieve_post_error()
-        self.update_post()
-        self.update_post_error()
-        self.delete_post()
-        self.delete_post_error()
+        self.run_tests('viewset')
 
 
 class ModelViewSetTest(BaseTestCase):
 
     def test_modelviewset_create(self):
-        print('\nTesting ModelViewSet API')
-        self.generate_api('modelviewset')
-        self.create_post()
-        self.create_post_error()
-        self.list_post()
-        self.retrieve_post()
-        self.retrieve_post_error()
-        self.update_post()
-        self.update_post_error()
-        self.delete_post()
-        self.delete_post_error()
+        self.run_tests('modelviewset')
