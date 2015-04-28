@@ -98,11 +98,11 @@ class FunctionViewTest(BaseTestCase):
 
 class ViewSetTest(BaseTestCase):
 
-    def test_viewset_create(self):
+    def test_viewset(self):
         self.run_tests('viewset')
 
 
 class ModelViewSetTest(BaseTestCase):
 
-    def test_modelviewset_create(self):
+    def test_modelviewset(self):
         self.run_tests('modelviewset')
