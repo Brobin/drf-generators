@@ -14,6 +14,9 @@ class Command(AppCommand):
         make_option('-f', '--format', dest='format', default='viewset',
                     help='view format (default: viewset)'),
 
+        make_option('-d', '--depth', dest='depth', default=0,
+                    help='serialization depth'),
+
         make_option('--force', dest='force', action='store_true',
                     help='force overwrite files'),
 
@@ -36,6 +39,7 @@ class Command(AppCommand):
         if django.VERSION[1] == 7:
             force = options['force'] if 'force' in options else False
             format = options['format'] if 'format' in options else None
+            depth = options['depth'] if 'depth' in format else 0
             if 'serializers' in options:
                 serializers = options['serializers']
             else:
@@ -46,6 +50,7 @@ class Command(AppCommand):
         elif django.VERSION[1] == 8:
             force = options['force']
             format = options['format']
+            depth = options['depth']
             serializers = options['serializers']
             views = options['views']
             urls = options['urls']
@@ -66,13 +71,13 @@ class Command(AppCommand):
             raise CommandError(message)
 
         if serializers:
-            result = generator.generate_serializers()
+            result = generator.generate_serializers(depth)
         elif views:
             result = generator.generate_views()
         elif urls:
             result = generator.generate_urls()
         else:
-            result = generator.generate_serializers() + '\n'
+            result = generator.generate_serializers(depth) + '\n'
             result += generator.generate_views() + '\n'
             result += generator.generate_urls()
 

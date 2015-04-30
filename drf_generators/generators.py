@@ -23,8 +23,8 @@ class BaseGenerator(object):
         self.models = self.get_model_names()
         self.serializers = self.get_serializer_names()
 
-    def generate_serializers(self):
-        content = self.serializer_content()
+    def generate_serializers(self, depth):
+        content = self.serializer_content(str(depth))
         filename = 'serializers.py'
         if self.write_file(content, filename):
             return '  - writing %s' % filename
@@ -47,8 +47,9 @@ class BaseGenerator(object):
         else:
             return 'Url generation cancelled'
 
-    def serializer_content(self):
-        context = Context({'app': self.name, 'models': self.models})
+    def serializer_content(self, depth):
+        context = Context({'app': self.name, 'models': self.models,
+                           'depth': depth})
         return self.serializer_template.render(context)
 
     def view_content(self):
