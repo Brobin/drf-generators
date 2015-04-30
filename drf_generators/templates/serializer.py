@@ -11,5 +11,6 @@ class {{ model }}Serializer(ModelSerializer):
 
     class Meta:
         model = {{ model }}
+        depth = {{ depth }}
 
 {% endfor %}"""
