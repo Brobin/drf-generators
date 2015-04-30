@@ -8,13 +8,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='drf-generators',
-    version='0.2.3',
+    version='0.2.4',
 
     description='Generate DRF Serializers, Views, and urls for your API aplication.',
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
-    download_url = 'https://github.com/brobin/drf-generators/archive/0.2.3.zip',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.2.4.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
