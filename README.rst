@@ -82,13 +82,14 @@ Option                     Action
 ``--urls``                 Generate only urls for your app.
 ``--force``                Overwrite existing files without the warning prompt.
 ``-f``, ``--format``       Format to use when generating views and urls. Valid options: ``viewset``, ``apiview``, ``function``, ``modelviewset``. Default: ``viewset``.
+``-d``, ``--depth``        Serialization depth for related models. Default: 0
 ========================== ===================================================
 
-**Example:** Generate everything for the app ``api_v1`` with function style views, overwriting existing files.
+**Example:** Generate everything for the app ``api`` with function style views, overwriting existing files, with a serialization depth of 2.
 
 .. code-block:: bash
 
-    $ python manage.py generate api_v1 --format function --force
+    $ python manage.py generate api --format function --force -- depth=2
 
 -------------------
 
