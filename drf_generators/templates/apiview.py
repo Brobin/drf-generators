@@ -2,8 +2,7 @@
 __all__ = ['API_VIEW', 'API_URL']
 
 
-API_URL = """
-from django.conf.urls import patterns, include, url
+API_URL = """from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from {{ app }} import views
 
@@ -17,8 +16,7 @@ urlpatterns = patterns('',
 """
 
 
-API_VIEW = """
-from rest_framework.pagination import PageNumberPagination
+API_VIEW = """from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from {{ app }}.serializers import {{ serializers|join:', ' }}
@@ -70,5 +68,4 @@ class {{ model }}APIListView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
-{% endfor %}
-"""
+{% endfor %}"""

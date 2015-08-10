@@ -2,8 +2,7 @@
 __all__ = ['MODEL_URL', 'MODEL_VIEW']
 
 
-MODEL_URL = """
-from rest_framework.routers import SimpleRouter
+MODEL_URL = """from rest_framework.routers import SimpleRouter
 from {{ app }} import views
 
 
@@ -15,8 +14,7 @@ urlpatterns = router.urls
 """
 
 
-MODEL_VIEW = """
-from rest_framework.viewsets import ModelViewSet
+MODEL_VIEW = """from rest_framework.viewsets import ModelViewSet
 from {{ app }}.serializers import {{ serializers|join:', ' }}
 from {{ app }}.models import {{ models|join:', ' }}
 {% for model in models %}
@@ -24,5 +22,4 @@ from {{ app }}.models import {{ models|join:', ' }}
 class {{ model }}ViewSet(ModelViewSet):
     queryset = {{ model }}.objects.all()
     serializer_class = {{ model }}Serializer
-{% endfor %}
-"""
+{% endfor %}"""

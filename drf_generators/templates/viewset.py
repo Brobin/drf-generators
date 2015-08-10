@@ -2,8 +2,7 @@
 __all__ = ['VIEW_SET_URL', 'VIEW_SET_VIEW']
 
 
-VIEW_SET_URL = """
-from rest_framework.routers import SimpleRouter
+VIEW_SET_URL = """from rest_framework.routers import SimpleRouter
 from {{ app }} import views
 
 
@@ -15,8 +14,7 @@ urlpatterns = router.urls
 """
 
 
-VIEW_SET_VIEW = """
-from django.shortcuts import get_object_or_404
+VIEW_SET_VIEW = """from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from {{ app }}.serializers import {{ serializers|join:', ' }}
@@ -61,5 +59,4 @@ class {{ model }}ViewSet(ViewSet):
             return Response(status=404)
         item.delete()
         return Response(status=204)
-{% endfor %}
-"""
+{% endfor %}"""
