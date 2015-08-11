@@ -66,8 +66,8 @@ class Command(AppCommand):
         elif format == 'modelviewset' or format is None:
             generator = ModelViewSetGenerator(app_config, force)
         else:
-            message = '\'%s\' is not a valid format.' % options['format']
-            message += '(viewset, apiview, function)'
+            message = '\'%s\' is not a valid format. ' % options['format']
+            message += '(viewset, modelviewset, apiview, function)'
             raise CommandError(message)
 
         if serializers:

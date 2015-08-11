@@ -2,10 +2,8 @@
 __all__ = ['FUNCTION_URL', 'FUNCTION_VIEW']
 
 
-FUNCTION_URL = """
-from django.conf.urls import patterns, include, url
+FUNCTION_URL = """from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from django.contrib import admin
 from {{ app }} import views
 
 
@@ -20,14 +18,12 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 """
 
 
-FUNCTION_VIEW = """
-from rest_framework import status
-from rest_framework.decorators import api_view
+FUNCTION_VIEW = """from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from {{ app }}.models import {{ models | join:', ' }}
 from {{ app }}.serializers import {{ serializers | join:', ' }}
-
 {% for model in models %}
+
 @api_view(['GET', 'POST'])
 def {{ model | lower }}_list(request):
     if request.method == 'GET':
@@ -41,6 +37,7 @@ def {{ model | lower }}_list(request):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def {{ model | lower }}_detail(request, pk):
