@@ -24,7 +24,7 @@ class BaseGenerator(object):
         self.serializers = self.get_serializer_names()
 
     def generate_serializers(self, depth):
-        content = self.serializer_content(str(depth))
+        content = self.serializer_content(depth)
         filename = 'serializers.py'
         if self.write_file(content, filename):
             return '  - writing %s' % filename

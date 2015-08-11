@@ -9,6 +9,6 @@ from {{ app }}.models import {{ models | join:', ' }}
 class {{ model }}Serializer(ModelSerializer):
 
     class Meta:
-        model = {{ model }}
-        depth = {{ depth }}
+        model = {{ model }}{% if depth != 0 %}
+        depth = {{ depth }}{% endif %}
 {% endfor %}"""
