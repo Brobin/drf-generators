@@ -254,15 +254,15 @@ License
 MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/LICENSE>`_.
 
 
-.. |python| image:: https://pypip.in/py_versions/drf-generators/badge.svg?style=flat-square
+.. |python| image:: https://img.shields.io/pypi/v/drf-generators.svg?style=flat-square
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: Supported Python versions
 
-.. |pypi| image:: https://pypip.in/version/drf-generators/badge.svg?text=version&style=flat-square
+.. |pypi| image:: https://img.shields.io/pypi/pyversions/drf-generators.svg?style=flat-square
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: Latest Version
 
-.. |license| image:: https://pypip.in/license/drf-generators/badge.svg?style=flat-square
+.. |license| image:: https://img.shields.io/pypi/l/drf-generators.svg?style=flat-square
     :target: https://pypi.python.org/pypi/drf-generators/
     :alt: License
 
