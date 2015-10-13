@@ -4,13 +4,23 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+  - "3.5"
 env:
-  - DJANGO=1.7
-  - DJANGO=1.8
+  - DJANGO=1.7 DRF=3.1
+  - DJANGO=1.7 DRF=3.2
+  - DJANGO=1.8 DRF=3.1
+  - DJANGO=1.8 DRF=3.2
+matrix:
+  exclude:
+   - python: "3.5"
+     env: DJANGO=1.7 DRF=3.1
+   - python: "3.5"
+     env: DJANGO=1.7 DRF=3.2
 install:
-  - pip install -q Django==$DJANGO --use-mirrors
-  - pip install pep8 --use-mirrors
-  - pip install -q -e . --use-mirrors
+  - pip install -q Django==$DJANGO
+  - pip install -q djangorestframework==$DRF
+  - pip install pep8
+  - pip install -q -e .
 before_script:
   - "pep8 drf_generators --exclude=templates && cd tests"
 script:

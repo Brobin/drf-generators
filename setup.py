@@ -22,7 +22,7 @@ setup(
 
     packages=['drf_generators', 'drf_generators.templates', 'drf_generators.management', 'drf_generators.management.commands'],
     include_package_data=True,
-    install_requires=['Django>=1.7', 'djangorestframework>=3.1.0'],
+    install_requires=['Django>=1.7'],
 
     classifiers=[
         'Environment :: Web Environment',
