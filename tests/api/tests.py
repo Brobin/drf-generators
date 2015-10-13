@@ -1,6 +1,7 @@
 
 from rest_framework.test import APITestCase
 from django.core.management import call_command
+from django.core.management.base import CommandError
 
 
 class BaseTestCase(APITestCase):
@@ -106,3 +107,13 @@ class ModelViewSetTest(BaseTestCase):
 
     def test_modelviewset(self):
         self.run_tests('modelviewset')
+
+
+class EdgeCaseTest(BaseTestCase):
+
+    def test_invalid_format(self):
+        try:
+            self.generate_api('asdf')
+        except Exception as e:
+            self.assertTrue(isinstance(e, CommandError))
+
