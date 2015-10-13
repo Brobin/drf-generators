@@ -1,4 +1,3 @@
-
 from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -84,4 +83,3 @@ class PostViewSet(ViewSet):
             return Response(status=404)
         item.delete()
         return Response(status=204)
-

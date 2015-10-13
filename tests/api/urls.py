@@ -1,4 +1,3 @@
-
 from rest_framework.routers import SimpleRouter
 from api import views
 
