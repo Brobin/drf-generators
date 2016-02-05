@@ -1,8 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
 env:
@@ -10,8 +8,8 @@ env:
   - DJANGO=1.7 DRF=3.2
   - DJANGO=1.8 DRF=3.1
   - DJANGO=1.8 DRF=3.2
-  - DJANGO=1.9 DRF=3.1
   - DJANGO=1.9 DRF=3.2
+  - DJANGO=1.9 DRF=3.3
 matrix:
   exclude:
    - python: "3.5"
