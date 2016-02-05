@@ -8,13 +8,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='drf-generators',
-    version='0.2.7',
+    version='0.2.8',
 
     description='Generate DRF Serializers, Views, and urls for your API aplication.',
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
-    download_url = 'https://github.com/brobin/drf-generators/archive/0.2.7.zip',
+    download_url = 'https://github.com/brobin/drf-generators/archive/0.2.8.zip',
     author='Tobin Brown',
     author_email='tobin@brobin.me',
 
@@ -28,13 +28,12 @@ setup(
         'Environment :: Web Environment',
         'Framework :: Django :: 1.7',
         'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.9',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Topic :: Internet :: WWW/HTTP',
