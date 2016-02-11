@@ -1,9 +1,19 @@
 
 from django.core.management.base import AppCommand, CommandError
+from django.utils.module_loading import import_module
 from drf_generators.generators import *
+from drf_generators import generators as generators_module
 from optparse import make_option
 import django
 
+# dict of submodule name => [imported symbols]
+template_imports = {
+    'serializer': ['SERIALIZER'],
+    'apiview': ['API_URL', 'API_VIEW'],
+    'viewset': ['VIEW_SET_URL', 'VIEW_SET_VIEW'],
+    'function': ['FUNCTION_URL', 'FUNCTION_VIEW'],
+    'modelviewset': ['MODEL_URL', 'MODEL_VIEW'],
+}
 
 class Command(AppCommand):
     help = 'Generates DRF API Views and Serializers for a Django app'
@@ -28,6 +38,9 @@ class Command(AppCommand):
 
         make_option('--urls', dest='urls', action='store_true',
                     help='generate urls only'),
+        
+        make_option('-t', '--template', dest='template',
+                    help='package name to use for templates')
     )
 
     option_list = AppCommand.option_list + base_options
@@ -46,6 +59,7 @@ class Command(AppCommand):
                 serializers = False
             views = options['views'] if 'views' in options else False
             urls = options['urls'] if 'urls' in options else False
+            template = options['template'] if 'template' in options else None
 
         elif django.VERSION[1] >= 8:
             force = options['force']
@@ -54,8 +68,15 @@ class Command(AppCommand):
             serializers = options['serializers']
             views = options['views']
             urls = options['urls']
+            template = options['template']
         else:
             raise CommandError('You must be using Django 1.7, 1.8 or 1.9')
+
+        if template is not None:
+            for submodule, symbols in template_imports.items():
+                mod = import_module('%s.%s' % (template, submodule))
+                for s in symbols:
+                    setattr(generators_module, s, getattr(mod, s))
 
         if format == 'viewset':
             generator = ViewSetGenerator(app_config, force)
