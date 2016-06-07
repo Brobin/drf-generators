@@ -15,6 +15,7 @@ template_imports = {
     'modelviewset': ['MODEL_URL', 'MODEL_VIEW'],
 }
 
+
 class Command(AppCommand):
     help = 'Generates DRF API Views and Serializers for a Django app'
 
@@ -38,7 +39,7 @@ class Command(AppCommand):
 
         make_option('--urls', dest='urls', action='store_true',
                     help='generate urls only'),
-        
+
         make_option('-t', '--template', dest='template',
                     help='package name to use for templates')
     )
