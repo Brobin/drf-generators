@@ -83,13 +83,14 @@ Option                     Action
 ``--force``                Overwrite existing files without the warning prompt.
 ``-f``, ``--format``       Format to use when generating views and urls. Valid options: ``viewset``, ``apiview``, ``function``, ``modelviewset``. Default: ``viewset``.
 ``-d``, ``--depth``        Serialization depth for related models. Default: 0
+``-t``, ``--template``     Use templates from a package. Default: internal templates 
 ========================== ===================================================
 
-**Example:** Generate everything for the app ``api`` with function style views, overwriting existing files, with a serialization depth of 2.
+**Example:** Generate everything for the app ``api`` from custom templates, with function style views, overwriting existing files, and with a serialization depth of 2.
 
 .. code-block:: bash
 
-    $ python manage.py generate api --format function --force -- depth=2
+    $ python manage.py generate api --template my_drf_template --format function --force --depth=2
 
 -------------------
 
@@ -238,6 +239,16 @@ Function urls
     ]
 
     urlpatterns = format_suffix_patterns(urlpatterns)
+
+
+=========
+Templates
+=========
+Template packages allow you to specify an alternate set of templates for use with the generator. Copy the `drf_generators.templates.* <https://github.com/Brobin/drf-generators/tree/master/drf_generators/templates>`_. package to `your_app.templates` & modify to suit your needs. Then call with the `--template` option.
+
+.. code-block:: bash
+
+    $ python manage.py generate api --template your_app.templates
 
 
 =====
