@@ -11,4 +11,5 @@ class {{ model }}Serializer(ModelSerializer):
     class Meta:
         model = {{ model }}{% if depth != 0 %}
         depth = {{ depth }}{% endif %}
+        fields = '__all__'
 {% endfor %}"""
