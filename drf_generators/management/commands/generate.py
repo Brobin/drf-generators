@@ -1,36 +1,30 @@
 
 from django.core.management.base import AppCommand, CommandError
 from drf_generators.generators import *
-from optparse import make_option
 import django
 
 
 class Command(AppCommand):
     help = 'Generates DRF API Views and Serializers for a Django app'
 
-    args = "[appname ...]"
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument('-f', '--format', dest='format', default='viewset',
+                            help='view format (default: viewset)')
+        parser.add_argument('-d', '--depth', dest='depth', default=0,
+                            help='serialization depth')
 
-    base_options = (
-        make_option('-f', '--format', dest='format', default='viewset',
-                    help='view format (default: viewset)'),
+        parser.add_argument('--force', dest='force', action='store_true',
+                            help='force overwrite files')
 
-        make_option('-d', '--depth', dest='depth', default=0,
-                    help='serialization depth'),
+        parser.add_argument('--serializers', dest='serializers', action='store_true',
+                            help='generate serializers only')
 
-        make_option('--force', dest='force', action='store_true',
-                    help='force overwrite files'),
+        parser.add_argument('--views', dest='views', action='store_true',
+                            help='generate views only')
 
-        make_option('--serializers', dest='serializers', action='store_true',
-                    help='generate serializers only'),
-
-        make_option('--views', dest='views', action='store_true',
-                    help='generate views only'),
-
-        make_option('--urls', dest='urls', action='store_true',
-                    help='generate urls only'),
-    )
-
-    option_list = AppCommand.option_list + base_options
+        parser.add_argument('--urls', dest='urls', action='store_true',
+                            help='generate urls only')
 
     def handle_app_config(self, app_config, **options):
         if app_config.models_module is None:
