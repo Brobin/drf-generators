@@ -31,3 +31,7 @@ pip-delete-this-directory.txt
 # Virtualenv
 py2venv
 py3venv
+venv/
+
+# Pycharm
+.idea/
