@@ -4,21 +4,8 @@ python:
   - "3.4"
   - "3.5"
 env:
-  - DJANGO=1.7 DRF=3.1
-  - DJANGO=1.7 DRF=3.2
-  - DJANGO=1.8 DRF=3.1
-  - DJANGO=1.8 DRF=3.2
-  - DJANGO=1.9 DRF=3.2
-  - DJANGO=1.9 DRF=3.3
-  - DJANGO=1.9 DRF=3.4
-  - DJANGO=1.10 DRF=3.4
+  - DJANGO=1.9 DRF=3.5
   - DJANGO=1.10 DRF=3.5
-matrix:
-  exclude:
-   - python: "3.5"
-     env: DJANGO=1.7 DRF=3.1
-   - python: "3.5"
-     env: DJANGO=1.7 DRF=3.2
 install:
   - pip install -q Django==$DJANGO
   - pip install -q djangorestframework==$DRF

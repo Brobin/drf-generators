@@ -1,4 +1,3 @@
-import rest_framework
 __all__ = ['SERIALIZER']
 
 
@@ -10,12 +9,6 @@ class {{ model }}Serializer(ModelSerializer):
 
     class Meta:
         model = {{ model }}{% if depth != 0 %}
-        depth = {{ depth }}{% endif %}"""
-
-if int(rest_framework.__version__.split('.')[1]) > 4:
-    SERIALIZER += """
         fields = '__all__'
-"""
-
-SERIALIZER += """
+        depth = {{ depth }}{% endif %}
 {% endfor %}"""
