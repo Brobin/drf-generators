@@ -9,6 +9,6 @@ class {{ model }}Serializer(ModelSerializer):
 
     class Meta:
         model = {{ model }}{% if depth != 0 %}
-        fields = '__all__'
         depth = {{ depth }}{% endif %}
+        fields = '__all__'
 {% endfor %}"""
