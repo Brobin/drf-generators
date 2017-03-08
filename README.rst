@@ -270,10 +270,10 @@ MIT License. See `LICENSE <https://github.com/brobin/drf-generators/blob/master/
     :target: https://travis-ci.org/Brobin/drf-generators/
     :alt: Travis CI
 
-.. |django| image:: https://img.shields.io/badge/Django-1.7, 1.8-orange.svg?style=flat-square
+.. |django| image:: https://img.shields.io/badge/Django-1.9, 1.10-orange.svg?style=flat-square
     :target: http://djangoproject.com/
-    :alt: Django 1.7, 1.8
+    :alt: Django 1.9, 1.10
 
-.. |drf| image:: https://img.shields.io/badge/DRF-3.1, 3.2-orange.svg?style=flat-square
+.. |drf| image:: https://img.shields.io/badge/DRF-3.5-orange.svg?style=flat-square
     :target: http://www.django-rest-framework.org/
-    :alt: DRF 3.0, 3.1
+    :alt: DRF 3.5

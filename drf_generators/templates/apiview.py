@@ -2,17 +2,29 @@
 __all__ = ['API_VIEW', 'API_URL']
 
 
-API_URL = """from django.conf.urls import patterns, include, url
+API_URL = """from django.conf.urls import include, url
+try:
+  from django.conf.urls import patterns
+except ImportError:
+  pass
+import django
 from django.contrib import admin
 from {{ app }} import views
 
-
-urlpatterns = patterns('',
-{% for model in models %}
+if django.VERSION[1] < 10:
+  urlpatterns = patterns('',
+  {% for model in models %}
     url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
     url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
-{% endfor %}
-)
+  {% endfor %}
+  )
+else:
+  urlpatterns = [
+  {% for model in models %}
+    url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
+    url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
+  {% endfor %}
+  ]
 """
 
 
