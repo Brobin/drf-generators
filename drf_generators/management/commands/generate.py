@@ -45,7 +45,8 @@ class Command(AppCommand):
             views = options['views'] if 'views' in options else False
             urls = options['urls'] if 'urls' in options else False
 
-        elif django.VERSION[1] >= 8:
+        elif django.VERSION[1] >= 8 or (django.VERSION[0] == 2
+                                        and django.VERSION[1] >= 0):
             force = options['force']
             format = options['format']
             depth = options['depth']
@@ -53,7 +54,7 @@ class Command(AppCommand):
             views = options['views']
             urls = options['urls']
         else:
-            raise CommandError('You must be using Django 1.7, 1.8 or 1.9')
+            raise CommandError('You must be using Django 1.7, 1.8, 1.9, 2.0+')
 
         if format == 'viewset':
             generator = ViewSetGenerator(app_config, force)
