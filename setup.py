@@ -10,7 +10,7 @@ setup(
     name='drf-generators',
     version='0.3.0',
 
-    description='Generate DRF Serializers, Views, and urls for your API aplication.',
+    description='Generate DRF Serializers, Views, and urls for your API application.',
     long_description=README,
 
     url='https://github.com/brobin/drf-generators',
