@@ -2,29 +2,42 @@
 __all__ = ['API_VIEW', 'API_URL']
 
 
-API_URL = """from django.conf.urls import include, url
-try:
+API_URL = """try:
   from django.conf.urls import patterns
 except ImportError:
   pass
 import django
 from django.contrib import admin
 from {{ app }} import views
+if django.VERSION[0] == 2:
+    from django.urls import path
 
-if django.VERSION[1] < 10:
-  urlpatterns = patterns('',
-  {% for model in models %}
-    url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
-    url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
-  {% endfor %}
-  )
+
+    urlpatterns = [{% for model in models %}
+        path('{{ model|lower }}/<int:pk>', views.{{ model | lower}}_detail),
+        path('{{ model|lower }}/', views.views.{{ model | lower}}_list,{% endfor %}
+    {% endfor %}
+    ]
+elif django.VERSION[1] < 10:
+    from django.conf.urls import include, url
+
+
+    urlpatterns = patterns('',
+        {% for model in models %}
+        url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
+        url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
+        {% endfor %}
+    )
 else:
-  urlpatterns = [
-  {% for model in models %}
-    url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
-    url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
-  {% endfor %}
-  ]
+    from django.conf.urls import include, url
+
+
+    urlpatterns = [
+        {% for model in models %}
+        url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
+        url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
+        {% endfor %}
+    ]
 """
 
 
