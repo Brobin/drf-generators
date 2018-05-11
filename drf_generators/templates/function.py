@@ -2,17 +2,27 @@
 __all__ = ['FUNCTION_URL', 'FUNCTION_VIEW']
 
 
-FUNCTION_URL = """from django.conf.urls import url
-from rest_framework.urlpatterns import format_suffix_patterns
+FUNCTION_URL = """from rest_framework.urlpatterns import format_suffix_patterns
 from {{ app }} import views
+if django.VERSION[0] == 2:
+    from django.urls import path
 
 
-urlpatterns = [
-{% for model in models %}
-    url(r'^{{ model|lower }}/(?P<pk>[0-9]+)$', views.{{ model | lower }}_detail),
-    url(r'^{{ model|lower }}/$', views.{{ model | lower }}_list),
-{% endfor %}
-]
+    urlpatterns = [{% for model in models %}
+        path('{{ model|lower }}/<int:pk>', views.{{ model | lower}}_detail),
+        path('{{ model|lower }}/', views.views.{{ model | lower}}_list,{% endfor %}
+    {% endfor %}
+    ]
+else:
+    from django.conf.urls import url
+
+
+    urlpatterns = [
+    {% for model in models %}
+        url(r'^{{ model|lower }}/(?P<pk>[0-9]+)$', views.{{ model | lower }}_detail),
+        url(r'^{{ model|lower }}/$', views.{{ model | lower }}_list),
+    {% endfor %}
+    ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 """
