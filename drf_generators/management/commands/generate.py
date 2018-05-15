@@ -45,8 +45,8 @@ class Command(AppCommand):
             views = options['views'] if 'views' in options else False
             urls = options['urls'] if 'urls' in options else False
 
-        elif django.VERSION[1] >= 8 or (django.VERSION[0] == 2
-                                        and django.VERSION[1] >= 0):
+        elif django.VERSION[1] >= 8 or (django.VERSION[0] == 2  # NOQA
+                                        and django.VERSION[1] >= 0):  # NOQA
             force = options['force']
             format = options['format']
             depth = options['depth']
