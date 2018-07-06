@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=128)),
                 ('slug', models.SlugField(blank=True, default='', max_length=128)),
                 ('content', models.TextField()),
-                ('category', models.ForeignKey(blank=True, null=True, to='api.Category')),
+                ('category', models.ForeignKey(blank=True, null=True, to='api.Category',
+                                               on_delete=models.SET_NULL)),
             ],
         ),
     ]

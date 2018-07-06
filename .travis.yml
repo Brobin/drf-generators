@@ -1,11 +1,12 @@
 language: python
 python:
-  - "2.7"
   - "3.4"
   - "3.5"
+  - "3.6"
 env:
   - DJANGO=1.9 DRF=3.5
   - DJANGO=1.10 DRF=3.5
+  - DJANGO=2.0 DRF=3.8
 install:
   - pip install -q Django==$DJANGO
   - pip install -q djangorestframework==$DRF
