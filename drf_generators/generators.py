@@ -1,4 +1,3 @@
-
 from django.template import Template, Context
 import os.path
 
@@ -22,6 +21,8 @@ class BaseGenerator(object):
         self.serializer_template = Template(SERIALIZER)
         self.models = self.get_model_names()
         self.serializers = self.get_serializer_names()
+        self.view_template = Template(API_VIEW)
+        self.url_template = Template(API_URL)
 
     def generate_serializers(self, depth):
         content = self.serializer_content(depth)
@@ -71,10 +72,7 @@ class BaseGenerator(object):
         name = os.path.join(os.path.dirname(self.app.__file__), filename)
         if os.path.exists(name) and not self.force:
             msg = "Are you sure you want to overwrite %s? (y/n): " % filename
-            try:
-                prompt = raw_input  # python2
-            except NameError:
-                prompt = input  # python3
+            prompt = input  # python3
             response = prompt(msg)
             if response != "y":
                 return False

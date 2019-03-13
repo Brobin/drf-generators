@@ -1,3 +1,5 @@
+import sys
+
 from django.core.management.base import AppCommand, CommandError
 from drf_generators.generators import *
 import django
@@ -34,6 +36,9 @@ class Command(AppCommand):
         if app_config.models_module is None:
             raise CommandError('You must provide an app to generate an API')
 
+        if sys.version_info[0] != 3 or sys.version_info[1] < 4:
+            raise CommandError('Python 3.4 or newer is required')
+
         if django.VERSION[1] == 7:
             force = options['force'] if 'force' in options else False
             format = options['format'] if 'format' in options else None
@@ -45,7 +50,7 @@ class Command(AppCommand):
             views = options['views'] if 'views' in options else False
             urls = options['urls'] if 'urls' in options else False
 
-        elif django.VERSION[1] >= 8:
+        elif django.VERSION[1] >= 8 or django.VERSION[0] == 2:
             force = options['force']
             format = options['format']
             depth = options['depth']
