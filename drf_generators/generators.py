@@ -85,30 +85,30 @@ class BaseGenerator(object):
 class APIViewGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
+        super(APIViewGenerator, self).__init__(app_config, force)
         self.view_template = Template(API_VIEW)
         self.url_template = Template(API_URL)
-        super(APIViewGenerator, self).__init__(app_config, force)
 
 
 class ViewSetGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
+        super(ViewSetGenerator, self).__init__(app_config, force)
         self.view_template = Template(VIEW_SET_VIEW)
         self.url_template = Template(VIEW_SET_URL)
-        super(ViewSetGenerator, self).__init__(app_config, force)
 
 
 class FunctionViewGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
+        super(FunctionViewGenerator, self).__init__(app_config, force)
         self.view_template = Template(FUNCTION_VIEW)
         self.url_template = Template(FUNCTION_URL)
-        super(FunctionViewGenerator, self).__init__(app_config, force)
 
 
 class ModelViewSetGenerator(BaseGenerator):
 
     def __init__(self, app_config, force):
+        super(ModelViewSetGenerator, self).__init__(app_config, force)
         self.view_template = Template(MODEL_VIEW)
         self.url_template = Template(MODEL_URL)
-        super(ModelViewSetGenerator, self).__init__(app_config, force)
