@@ -3,28 +3,15 @@ __all__ = ['API_VIEW', 'API_URL']
 
 
 API_URL = """from django.conf.urls import include, url
-try:
-  from django.conf.urls import patterns
-except ImportError:
-  pass
-import django
-from django.contrib import admin
 from {{ app }} import views
 
-if django.VERSION[1] < 10:
-  urlpatterns = patterns('',
-  {% for model in models %}
-    url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
-    url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
-  {% endfor %}
-  )
-else:
-  urlpatterns = [
-  {% for model in models %}
-    url(r'^{{ model|lower }}/(?P<id>[0-9]+)$', views.{{ model }}APIView.as_view()),
-    url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
-  {% endfor %}
-  ]
+
+urlpatterns = [
+{% for model in models %}
+  url(r'^{{ model|lower }}/(?P<id>[0-9]+)/$', views.{{ model }}APIView.as_view()),
+  url(r'^{{ model|lower }}/$', views.{{ model }}APIListView.as_view()),
+{% endfor %}
+]
 """
 
 
@@ -68,7 +55,7 @@ class {{ model }}APIView(APIView):
 class {{ model }}APIListView(APIView):
 
     def get(self, request, format=None):
-        items = {{ model }}.objects.all()
+        items = {{ model }}.objects.order_by('pk')
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
         serializer = {{ model }}Serializer(result_page, many=True)

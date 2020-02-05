@@ -24,7 +24,7 @@ from {{ app }}.models import {{ models|join:', ' }}
 class {{ model }}ViewSet(ViewSet):
 
     def list(self, request):
-        queryset = {{ model }}.objects.all()
+        queryset = {{ model }}.objects.order_by('pk')
         serializer = {{ model }}Serializer(queryset, many=True)
         return Response(serializer.data)
 

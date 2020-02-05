@@ -1,12 +1,21 @@
 language: python
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
 env:
-  - DJANGO=1.9 DRF=3.5
-  - DJANGO=1.10 DRF=3.5
-  - DJANGO=2.0 DRF=3.8
+  - DJANGO=1.11 DRF=3.11
+  - DJANGO=2.2 DRF=3.11
+  - DJANGO=3.0 DRF=3.11
+matrix:
+  exclude:
+    - python: "3.5"
+      env: DJANGO=3.0 DRF=3.11
+    - python: "3.7"
+      env: DJANGO=1.11 DRF=3.11
+    - python: "3.8"
+      env: DJANGO=1.11 DRF=3.11
 install:
   - pip install -q Django==$DJANGO
   - pip install -q djangorestframework==$DRF
@@ -15,4 +24,11 @@ install:
 before_script:
   - "pep8 drf_generators --exclude=templates && cd tests"
 script:
-  - python manage.py test
+  - python manage.py generate api --format apiview --force
+  - python manage.py test api
+  - python manage.py generate api --format function --force
+  - python manage.py test api
+  - python manage.py generate api --format viewset --force
+  - python manage.py test api
+  - python manage.py generate api --format modelviewset --force
+  - python manage.py test api

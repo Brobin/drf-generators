@@ -20,6 +20,6 @@ from {{ app }}.models import {{ models|join:', ' }}
 {% for model in models %}
 
 class {{ model }}ViewSet(ModelViewSet):
-    queryset = {{ model }}.objects.all()
+    queryset = {{ model }}.objects.order_by('pk')
     serializer_class = {{ model }}Serializer
 {% endfor %}"""

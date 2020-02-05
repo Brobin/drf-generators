@@ -9,7 +9,7 @@ from {{ app }} import views
 
 urlpatterns = [
 {% for model in models %}
-    url(r'^{{ model|lower }}/(?P<pk>[0-9]+)$', views.{{ model | lower }}_detail),
+    url(r'^{{ model|lower }}/(?P<pk>[0-9]+)/$', views.{{ model | lower }}_detail),
     url(r'^{{ model|lower }}/$', views.{{ model | lower }}_list),
 {% endfor %}
 ]
@@ -27,7 +27,7 @@ from {{ app }}.serializers import {{ serializers | join:', ' }}
 @api_view(['GET', 'POST'])
 def {{ model | lower }}_list(request):
     if request.method == 'GET':
-        items = {{ model }}.objects.all()
+        items = {{ model }}.objects.order_by('pk')
         serializer = {{ model }}Serializer(items, many=True)
         return Response(serializer.data)
 
@@ -44,7 +44,7 @@ def {{ model | lower }}_detail(request, pk):
     try:
         item = {{ model }}.objects.get(pk=pk)
     except {{ model }}.DoesNotExist:
-        return Response(status=400)
+        return Response(status=404)
 
     if request.method == 'GET':
         serializer = {{ model }}Serializer(item)

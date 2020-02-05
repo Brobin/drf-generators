@@ -1,21 +1,14 @@
-from django.conf.urls import include, url
-from django.contrib import admin
-
 from django import VERSION
 
+
 if VERSION[0] == 1:
+    from django.conf.urls import include, url
     urlpatterns = [
-
-        url(r'^admin/', include(admin.site.urls)),
         url(r'^api/', include('api.urls')),
-
     ]
 
 else:
-
+    from django.urls import include, path
     urlpatterns = [
-
-        url(r'^admin/', admin.site.urls),
-        url(r'^api/', include('api.urls')),
-
+        path('api/', include('api.urls')),
     ]
