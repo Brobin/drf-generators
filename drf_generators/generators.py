@@ -21,8 +21,7 @@ class BaseGenerator(object):
         self.serializer_template = Template(SERIALIZER)
         self.models = self.get_model_names()
         self.serializers = self.get_serializer_names()
-        self.view_template = Template(API_VIEW)
-        self.url_template = Template(API_URL)
+
 
     def generate_serializers(self, depth):
         content = self.serializer_content(depth)
