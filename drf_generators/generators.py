@@ -22,7 +22,6 @@ class BaseGenerator(object):
         self.models = self.get_model_names()
         self.serializers = self.get_serializer_names()
 
-
     def generate_serializers(self, depth):
         content = self.serializer_content(depth)
         filename = 'serializers.py'
