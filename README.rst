@@ -89,7 +89,7 @@ Option                     Action
 
 .. code-block:: bash
 
-    $ python manage.py generate api --format function --force -- depth=2
+    $ python manage.py generate api --format function --force --depth=2
 
 -------------------
 
